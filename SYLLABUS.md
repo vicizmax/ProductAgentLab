@@ -84,13 +84,36 @@ That's it. Claude Code is now running and can see all the files in this project.
 
 #### Your First Interaction
 
-Once Claude Code is running, try typing:
+Once Claude Code is running, type:
+
+```
+/start
+```
+
+This launches a guided walkthrough that will:
+- Check what documents you have in `context/`
+- Summarize them for you
+- Walk you through your first grounded question
+- Explain what happened and what to do next
+
+If you prefer to explore on your own, you can also just type questions directly, like:
 
 ```
 Read the files in context/ and give me a brief summary of each document.
 ```
 
-Claude will read each document in the folder and summarize it. This is your first grounded interaction — Claude is answering based on your actual files, not its general knowledge.
+#### Available Slash Commands
+
+This project comes with four built-in commands you can use anytime inside Claude Code:
+
+| Command | What It Does |
+|---|---|
+| `/start` | Guided first-time walkthrough — start here |
+| `/analyze` | Structured analysis of all documents (decisions, risks, open questions) |
+| `/template` | Browse and customize prompt templates from the library |
+| `/audit` | Detailed audit of a specific document for completeness and gaps |
+
+You can also pass arguments to some commands, e.g. `/analyze risks` to focus on risks only, or `/audit my-prd.md` to audit a specific file.
 
 #### How to Exit and Restart
 
@@ -546,13 +569,19 @@ cd ~/Documents/Claude/ProductAgentLab
 claude
 ```
 
-**Inside Claude Code, useful commands:**
+**Inside Claude Code, built-in project commands:**
 ```
+/start                   # Guided first-time walkthrough
+/analyze                 # Structured analysis of all documents
+/analyze risks           # Focus analysis on a specific area
+/template                # Browse and customize prompt templates
+/template UX             # Filter templates by role
+/audit my-prd.md         # Audit a specific document
 /help                    # See all available commands
 /exit                    # Leave Claude Code
 ```
 
-**Example questions to ask Claude Code:**
+**Or just ask questions directly:**
 ```
 Read all the files in context/ and summarize each one.
 Based on the documents in context/, what are the top risks for [project]?
