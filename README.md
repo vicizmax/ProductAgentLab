@@ -19,30 +19,11 @@ Start by asking questions grounded in your actual product documents, then level 
 
 Follow these steps in order. If you get stuck on any step, that's normal — just describe what happened and ask for help.
 
-### Step 1: Install Node.js
+### Step 1: Get started with Claude Code up and running
 
-Claude Code needs Node.js to run. If you're not sure whether you have it, that's fine — just install it.
+Follow these steps here: [https://github.com/SonarSource/augmented-product-craft/blob/master/getting-started/claude-code.md](https://github.com/SonarSource/augmented-product-craft/blob/master/getting-started/claude-code.md)
 
-1. Go to [nodejs.org](https://nodejs.org)
-2. Click the big green button that says **LTS** (the "stable" version)
-3. Open the downloaded file and follow the installer prompts
-4. When it's done, move on to Step 2
-
-### Step 2: Install Claude Code
-
-Open your terminal:
-- **Mac**: Press `Cmd + Space`, type **Terminal**, press Enter
-- **Windows**: Press the Windows key, type **Command Prompt**, press Enter
-
-Then paste this command and press Enter:
-
-```
-npm install -g @anthropic-ai/claude-code
-```
-
-You'll see some text scroll by. Wait until it finishes (you'll see your cursor blinking on a new blank line). If you see an error mentioning "npm not found", go back to Step 1.
-
-### Step 3: Download this project
+### Step 2: Download this project
 
 You have two options. Pick whichever feels easier.
 
@@ -60,17 +41,24 @@ cd ~/Documents
 git clone https://github.com/vicizmax/product-ai-starter.git
 ```
 
-### Step 4: Open Claude Code in the project
+### Step 3: Open the project in an IDE
 
-In your terminal, navigate to the project folder. If you put it in Documents, the command is:
+We recommend using an IDE (a code editor) because it lets you see your files in a sidebar, drag and drop documents into folders, and run Claude Code in a built-in terminal — all in one window.
 
-```
-cd ~/Documents/product-ai-starter
-```
+**Recommended: [Cursor](https://cursor.com)** or **[VS Code](https://code.visualstudio.com)** — both are free.
 
-> **Tip**: If you're not sure of the exact folder name or path, type `cd ~/Documents/` and then press **Tab** — your terminal will show you what folders are available.
+1. Download and install [Cursor](https://cursor.com) or [VS Code](https://code.visualstudio.com)
+2. Open it, then go to **File → Open Folder**
+3. Select the `product-ai-starter` folder you downloaded in Step 2
+4. You should see the project files in the left sidebar (`context/`, `prompts/`, `SYLLABUS.md`, etc.)
 
-Then start Claude Code:
+### Step 4: Open the terminal and start Claude Code
+
+Your IDE has a built-in terminal — no need to open a separate app.
+
+- **Cursor / VS Code**: Press `` Ctrl + ` `` (backtick — the key above Tab) to open the terminal panel at the bottom
+
+In that terminal, type:
 
 ```
 claude
@@ -121,29 +109,19 @@ Once you're inside Claude Code, these commands are always available:
 
 When you come back to this project later:
 
-1. Open your terminal
-2. Navigate to the project folder: `cd ~/Documents/product-ai-starter`
-3. Type `claude` to start a fresh session, or `claude --continue` to pick up where you left off (this is cheaper — Claude doesn't re-read everything from scratch)
-4. Type `/learn` to continue the syllabus from where you stopped
+1. Open your IDE (Cursor or VS Code)
+2. The project should still be open — if not, go to **File → Open Folder** and select it again
+3. Open the terminal (`` Ctrl + ` ``)
+4. Type `claude` to start a fresh session, or `claude --continue` to pick up where you left off (this is cheaper — Claude doesn't re-read everything from scratch)
+5. Type `/learn` to continue the syllabus from where you stopped
 
-## Using with Cursor Instead of Terminal
-
-If you prefer [Cursor](https://cursor.com) (a code editor with AI built in) over the terminal:
-
-1. Download and install [Cursor](https://cursor.com)
-2. Open Cursor, then go to **File → Open Folder** and select this project folder
-3. Open the built-in terminal in Cursor: press `` Ctrl + ` `` (backtick — the key above Tab)
-4. Type `claude` to start Claude Code, then `/learn` to begin
-
-The project works the same way in Cursor — you're just using its terminal instead of the standalone Terminal app. Cursor also has its own AI chat (`Cmd + L` on Mac, `Ctrl + L` on Windows) that will follow the rules in `.cursor/rules/` automatically.
+> **Prefer the standalone terminal?** That works too. Open Terminal (Mac) or Command Prompt (Windows), run `cd ~/Documents/product-ai-starter`, then `claude`.
 
 ---
 
 ## Troubleshooting
 
-**"npm not found"** — You need Node.js. Go back to Step 1.
-
-**"claude: command not found"** — Close your terminal, open a new one, and try `claude` again. If it still doesn't work, re-run the install command from Step 2.
+**"npm not found"** or **"claude: command not found"** — Something went wrong with the Claude Code installation. Go back to Step 1 and follow the setup guide again. If you just installed it, try closing and reopening your terminal.
 
 **Claude asks me to log in every time** — This is normal for the first few sessions. It should remember you after that.
 
