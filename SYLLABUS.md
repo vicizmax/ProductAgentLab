@@ -1,11 +1,11 @@
 # Claude Code for Product Teams
-## A Self-Directed Learning Guide
+## A 4-Week Self-Directed Learning Guide
 
 **Who this is for**: Product managers, UX designers, product researchers, product analysts, and anyone in the product department who wants to use AI to work smarter — without needing to write code.
 
 Most examples in this guide use PM scenarios (PRDs, roadmaps, stakeholder updates) because they're the broadest common denominator across product orgs. But the concepts, tools, and techniques apply equally to UX research synthesis, design critique, content strategy, and product analytics. Where workflows differ meaningfully by role, the guide calls that out with **role-specific variations**.
 
-**What this is**: A 3-week learning path that starts from zero and ends with a set of repeatable AI-powered workflows you use daily.
+**What this is**: A 4-week learning path that starts from zero and ends with a set of repeatable AI-powered workflows you use daily.
 
 **What this is not**: A coding course. There is no code to write, run, or debug.
 
@@ -40,7 +40,7 @@ This project is a structured learning environment. It gives you:
 
 You use Claude Code directly to read your documents and answer questions about them. There's no custom software to install or run — Claude Code is the tool.
 
-### The Three Concepts You Must Understand
+### The Four Concepts You Must Understand
 
 **1. Context**
 The information Claude can see when answering a question. Bad context = generic answers. Good context = specific, accurate answers. Everything you put in the `context/` folder becomes available to Claude when you ask it to read those files.
@@ -50,6 +50,9 @@ Making Claude's answers stick to your actual documents rather than its general k
 
 **3. Hallucination**
 When AI confidently states something false. It happens because the model doesn't "know" it doesn't know — it predicts the most likely next word. This is why you should always ask Claude to cite which document it's drawing from. If there's no citation, treat the answer as unverified.
+
+**4. Tokens and Cost**
+Every interaction with Claude uses "tokens" — units of text roughly equal to ¾ of a word. More tokens = higher cost. Reading a long document costs more than asking a simple question. You don't need to obsess about this, but two practical tips: (1) use `claude --continue` to resume a conversation instead of starting fresh — it's cheaper because Claude doesn't re-read everything from scratch, and (2) type `/cost` inside Claude Code to see your usage anytime.
 
 ---
 
@@ -301,6 +304,23 @@ Pick one current or upcoming project. Add its relevant documents to `context/`. 
 
 Where does Claude add value? Where is it wrong? What did it miss because it wasn't in the documents?
 
+**Part 2: Refine the Draft**
+
+Now practice the iterative refinement loop — the skill that separates useful AI outputs from generic ones:
+
+1. Ask Claude to generate a draft executive summary of your project based on the documents in `context/`
+2. Read the draft critically. Mark 2-3 specific problems: missing nuance, wrong emphasis, generic language, factual gaps
+3. Tell Claude exactly what to fix:
+   ```
+   Revise the executive summary. Specifically:
+   - The risk section understates [specific risk] — make it more prominent
+   - The success metrics are too vague — use the specific numbers from context/[file].md
+   - The tone is too optimistic — add the concerns raised in context/[other-file].md
+   ```
+4. Compare the revision to the original. Is it better? What improved and what didn't?
+
+The point: Claude's first draft is rarely the final answer. Your judgment about *what's wrong* and your ability to articulate *how to fix it* is what makes the output useful. This describe → generate → critique → revise loop is the core skill for working with AI.
+
 ---
 
 ### Day 11–12: Bridge the Product-Engineering Gap
@@ -384,6 +404,52 @@ Take user research from the past quarter. Synthesize it with Claude. Compare the
 
 ---
 
+### Evaluate What You Just Built: Trust Calibration
+
+**What you're doing**: Now that you've generated summaries, syntheses, and analyses in Weeks 1-2, developing judgment about when to trust Claude's output and when to verify it.
+
+#### The Trust Calibration Framework
+
+Not all AI outputs require the same level of scrutiny:
+
+**High trust — use with light review:**
+- Summaries of documents you gave it (Claude is extracting, not inventing)
+- Reformatting or restructuring existing content
+- Identifying explicit mentions ("what risks are listed in this doc")
+
+**Medium trust — review carefully before using:**
+- Synthesis across multiple documents (Claude is interpreting relationships)
+- Identifying patterns or themes (may miss important nuance)
+- First drafts of new documents based on your context
+
+**Low trust — always verify independently:**
+- Any specific numbers, dates, or statistics
+- Claims about competitor behavior or market trends
+- Technical recommendations
+- Anything that would be professionally embarrassing if wrong
+- Legal, compliance, or safety-adjacent conclusions
+
+#### Red Flags in AI Output
+
+Train yourself to notice these:
+- **Confident claims with no citation**: Where is this coming from?
+- **Vague answers that could describe any product**: Claude is pattern-matching on generic PM language, not your documents
+- **Missing nuance you know exists**: It found a fact but lost the context that complicates it
+- **Very long outputs with thin substance**: A sign the prompt was too vague
+- **Answers that are suspiciously well-structured but wrong**: Looks authoritative, isn't
+
+#### Exercise 2.5: Output Audit
+
+Take 5 answers Claude gave you during Weeks 1–2. For each:
+1. Identify every factual claim
+2. Check: was this in your documents? (ask Claude "Which document is that from?")
+3. Is the claim accurate?
+4. What would have happened if you had used this without checking?
+
+The goal is not paranoia — it's calibration. After this exercise, you should have a clear sense of what this tool is reliable for and what it isn't.
+
+---
+
 ### Role-Specific Variations: UX and Design Workflows
 
 If you're in UX, design, or research, these exercises are your equivalent of the PM document workflows above. You can do them instead of (or in addition to) the PM-focused Day 8–12 exercises.
@@ -444,17 +510,153 @@ The value isn't that Claude is a UX expert — it's that it can systematically c
 
 ---
 
-## Week 3: Build Systems, Not Just Answers
+## Week 3: Level Up — New Capabilities
 
-**Goal**: By the end of this week, you have a personal prompt library, a reliable way to evaluate AI outputs, and you can introduce a colleague to this system.
+**Goal**: By the end of this week, you've customized Claude Code for your workflow, used advanced techniques like multi-perspective analysis and data analysis, built a reusable prompt library, and created something shareable with your team.
 
 ---
 
-### Day 15–17: Build Your Prompt Library
+### Day 15–16: Customize Your Setup
 
-**What you're doing**: Creating reusable templates so every query doesn't start from scratch.
+**What you're doing**: Learning how to configure Claude Code to work the way you want — and understanding what things cost.
 
-#### What Makes a Good Prompt
+#### What is CLAUDE.md?
+
+The file `CLAUDE.md` in this project is a set of standing instructions that Claude reads every time it starts. Open it and look — you'll see rules like "Cite sources by filename" and "Never invent product facts." These rules shape how Claude behaves in this project.
+
+You can create a `CLAUDE.md` for any project you work on. Think of it as training a new team member: "Here's how we do things around here."
+
+**How this project uses CLAUDE.md**: The rules in this project's `CLAUDE.md` enforce grounded answers, source citations, and plain language. Without them, Claude would give generic, uncited responses. The rules make the difference.
+
+#### Session Management
+
+You've been using `claude` and `claude --continue`. Here's the full picture:
+
+| Command | What It Does | When to Use It |
+|---|---|---|
+| `claude` | Start a fresh session | New task, clean slate |
+| `claude --continue` | Resume your last conversation | Picking up where you left off — faster and cheaper because Claude already has context |
+| `claude --resume` | Pick a specific past session | Jumping back to a particular conversation from days ago |
+
+**Why this matters for cost**: Every new session means Claude re-reads your project files and CLAUDE.md. Using `--continue` skips that, saving tokens (and money). For multi-day work like this syllabus, `--continue` is almost always the right choice.
+
+#### Cost Awareness
+
+Type `/cost` inside Claude Code to see how many tokens you've used in the current session. A few rules of thumb:
+- Reading lots of documents = more tokens = higher cost
+- Long conversations accumulate tokens — start fresh if you're switching to an unrelated task
+- `--continue` is cheaper than starting fresh for ongoing work
+- Simple questions about a single document cost much less than complex synthesis across many documents
+
+#### Exercise 3.1: Create a Custom CLAUDE.md
+
+Create a `CLAUDE.md` for a real project you work on (not this learning project — a different one). Ask Claude to help:
+
+```
+I want to create a CLAUDE.md file for my [project type] project. The project is about
+[brief description]. My team values [what matters — accuracy, speed, specific formats].
+
+Help me write a CLAUDE.md that includes:
+- A description of the project and who uses it
+- Rules for how Claude should behave (tone, format, what to avoid)
+- Any role-specific instructions
+
+Use this project's CLAUDE.md as a reference for the structure.
+```
+
+Review what Claude generates. Edit it to match how your team actually works. You don't need to deploy it yet — just create it as a draft.
+
+---
+
+### Day 17–18: Advanced Techniques
+
+**What you're doing**: Learning techniques that get significantly better results from Claude — multi-perspective analysis, parallel work, and structured data.
+
+#### Multi-Perspective Analysis
+
+One of the most powerful patterns: ask Claude to analyze a document from multiple viewpoints simultaneously. Instead of one answer, you get a richer picture.
+
+The pattern:
+```
+Read context/[your-file].md and analyze it from four perspectives:
+1. As a PM: What are the key decisions, risks, and open questions?
+2. As an engineer: What are the technical constraints and feasibility concerns?
+3. As an executive: What's the business case and strategic alignment?
+4. As a user: What problem does this solve and what's the experience like?
+
+For each perspective, list the top 3 insights and any concerns. Note where perspectives conflict.
+```
+
+This works well for PRDs, feature specs, strategy documents, and launch plans.
+
+#### Sub-Agents: Parallel Work
+
+When you ask Claude to do multiple independent tasks, it can work on them simultaneously using sub-agents. You don't need to understand how this works technically — just know the pattern:
+
+```
+Do these three things at the same time:
+1. Summarize each document in context/
+2. List all risks across all documents
+3. Find contradictions between documents
+```
+
+Claude splits the work, runs it in parallel, and combines the results. This is faster than asking three separate questions.
+
+#### Working with Structured Data (CSVs)
+
+Claude Code can read CSV files directly from `context/`. This is useful for:
+- Sprint data exported from Jira or Linear
+- Survey results
+- Analytics exports
+- Customer feedback databases
+
+```
+Read context/[data-file].csv and tell me:
+- How many rows are there and what do the columns represent?
+- What are the top patterns or trends in the data?
+- Are there any outliers or anomalies?
+Summarize the key findings in a table.
+```
+
+#### Exercise 3.2: Multi-Perspective Document Review
+
+Pick the most important document in your `context/` folder and run a multi-perspective analysis:
+
+```
+Read context/[your-most-important-doc].md and analyze it from four perspectives:
+1. Product manager: decisions, risks, gaps in the spec
+2. Engineer: feasibility, technical debt, missing requirements
+3. Executive: business value, strategic fit, resource justification
+4. End user: problem-solution fit, usability, unaddressed needs
+
+For each perspective, give the top 3 insights and flag any conflicts between perspectives.
+Cite specific sections of the document.
+```
+
+Compare the output to your own analysis. Did the multi-perspective approach surface anything you hadn't considered?
+
+#### Exercise 3.3: Analyze Structured Data
+
+If you have a CSV file (sprint data, survey results, analytics export, feedback data):
+
+```
+Read context/[your-data].csv and:
+1. Describe the dataset — what's in it, how many records, what time period
+2. Identify the top 3 patterns or trends
+3. Flag anything that looks unusual or concerning
+4. Suggest 3 questions a PM should ask based on this data
+Present the findings in a table where possible.
+```
+
+**Don't have a CSV?** No problem. Export something from a tool you use — even a simple spreadsheet saved as CSV works. Or skip this exercise and move to 3.4. You can come back to it anytime.
+
+---
+
+### Day 19–20: Build Your Toolkit
+
+**What you're doing**: Creating reusable prompt templates and building a shareable artifact.
+
+#### Your Prompt Library
 
 A strong prompt has five elements:
 
@@ -466,17 +668,11 @@ A strong prompt has five elements:
 | **Output format** | How the answer should be structured | "List as: Risk / Severity / Evidence / Recommended action" |
 | **Quality bar** | The standard to meet | "Flag any assumption you're making explicitly." |
 
-Prompts with all five elements give consistently better outputs than vague questions.
+The file `prompts/templates.md` already contains 18 templates organized by role (PM, UX, Research, Cross-functional). Browse it with `/template` and start customizing.
 
-#### Starter Prompt Library
+#### Exercise 3.4: Write Your Three Templates
 
-The file `prompts/templates.md` already contains 18 templates organized by role (PM, UX, Research, Cross-functional). Browse it, pick the ones relevant to your work, and start customizing them.
-
-To use a template: open it, copy the prompt text, replace `[brackets]` with your specifics, and paste it into Claude Code.
-
-#### Exercise 3.1: Write Your Three Templates
-
-Think about the three most repetitive tasks **in your specific role** right now. Write a prompt template for each. Test each one with real documents. The test passes when you'd actually use the output in a real work situation without major edits.
+Think about the three most repetitive tasks **in your specific role** right now. Write a prompt template for each using the five-element structure. Test each one with real documents. The test passes when you'd actually use the output in a real work situation without major edits.
 
 Some starting points by role:
 - **PM**: stakeholder update, launch readiness check, roadmap prioritization rationale
@@ -486,55 +682,39 @@ Some starting points by role:
 
 Add your templates to `prompts/templates.md` in the "My Custom Templates" section at the bottom.
 
----
+#### Exercise 3.5: Build Something Shareable
 
-### Day 18–19: Evaluate AI Outputs Reliably
+Choose one option based on your role and create a polished output that you could actually send to your team:
 
-**What you're doing**: Developing judgment about when to trust Claude's output and when to verify it.
+**Option A — Project Health Summary (PMs)**:
+```
+Read all documents in context/ and create a comprehensive Project Health Summary.
+Include: overall status, key decisions made, open risks, unresolved questions,
+and recommended next steps. Format it as a document I could email to my team.
+Cite every claim to a specific source file.
+```
 
-#### The Trust Calibration Framework
+**Option B — Research Digest (UX/Research)**:
+```
+Read all research documents in context/ and create a Research Digest.
+Include: key findings, top user pain points, opportunity areas, and
+recommended research priorities. Format as a one-page summary suitable
+for sharing at a team meeting. Cite source documents.
+```
 
-Not all AI outputs require the same level of scrutiny:
+**Option C — Competitive Brief (Any role)**:
+```
+Based on the documents in context/, create a Competitive Analysis Brief.
+Include: our positioning, competitor strengths and weaknesses, gaps in
+our approach, and strategic recommendations. Format as a scannable
+one-pager with a summary table. Cite sources.
+```
 
-**High trust — use with light review:**
-- Summaries of documents you gave it (Claude is extracting, not inventing)
-- Reformatting or restructuring existing content
-- Identifying explicit mentions ("what risks are listed in this doc")
-
-**Medium trust — review carefully before using:**
-- Synthesis across multiple documents (Claude is interpreting relationships)
-- Identifying patterns or themes (may miss important nuance)
-- First drafts of new documents based on your context
-
-**Low trust — always verify independently:**
-- Any specific numbers, dates, or statistics
-- Claims about competitor behavior or market trends
-- Technical recommendations
-- Anything that would be professionally embarrassing if wrong
-- Legal, compliance, or safety-adjacent conclusions
-
-#### Red Flags in AI Output
-
-Train yourself to notice these:
-- **Confident claims with no citation**: Where is this coming from?
-- **Vague answers that could describe any product**: Claude is pattern-matching on generic PM language, not your documents
-- **Missing nuance you know exists**: It found a fact but lost the context that complicates it
-- **Very long outputs with thin substance**: A sign the prompt was too vague
-- **Answers that are suspiciously well-structured but wrong**: Looks authoritative, isn't
-
-#### Exercise 3.2: Output Audit
-
-Take 5 answers Claude gave you during Weeks 1–2. For each:
-1. Identify every factual claim
-2. Check: was this in your documents? (ask Claude "Which document is that from?")
-3. Is the claim accurate?
-4. What would have happened if you had used this without checking?
-
-The goal is not paranoia — it's calibration. After this exercise, you should have a clear sense of what this tool is reliable for and what it isn't.
+**Stretch goal**: Ask Claude to generate the output as an HTML page you can open in your browser and share as a link.
 
 ---
 
-### Day 20–21: Share With Your Team
+### Day 21: Share With Your Team
 
 **What you're doing**: Turning your personal setup into a team resource.
 
@@ -543,7 +723,8 @@ The goal is not paranoia — it's calibration. After this exercise, you should h
 **Share freely:**
 - This syllabus
 - Your `prompts/templates.md` file
-- Your setup instructions with your own notes
+- Your custom CLAUDE.md (from Exercise 3.1)
+- The shareable artifact you built (from Exercise 3.5)
 - What worked, what didn't, and what surprised you
 
 **Handle with care:**
@@ -559,9 +740,198 @@ When introducing this to colleagues, structure it as:
 4. **First exercise (20 min)**: Everyone asks Claude three questions about their document.
 5. **Debrief (10 min)**: What surprised them? What questions came up?
 
-#### Exercise 3.3: Teach One Colleague
+#### Exercise 3.6: Teach One Colleague
 
 Find one person who might benefit. Walk them through setup and their first Claude Code session. Write down the questions they asked that you couldn't answer — those are gaps to fix either in documentation or in this guide.
+
+---
+
+## Week 4: Go Further — Build, Connect, Visualize
+
+**Goal**: By the end of this week, you've built a working prototype, connected Claude to one of your work tools, generated visual artifacts, and documented your personal AI workflow system.
+
+> **Note**: This week introduces the most advanced capabilities in the guide. Every exercise is designed so that Claude does the technical work — you describe what you want and review the results. No coding knowledge is needed.
+
+---
+
+### Day 22–24: Build a Prototype (Vibe Coding)
+
+**What you're doing**: Describing what you want and having Claude build a working interactive prototype — no coding required.
+
+#### What is "Vibe Coding"?
+
+Vibe coding means describing what you want in plain language and letting Claude generate the code for you. You don't write, read, or debug any code. Your job is to:
+1. Describe what you want clearly
+2. Open the result in your browser
+3. Critique it and ask for revisions
+4. Repeat until it's useful
+
+This works because Claude can generate HTML, CSS, and JavaScript — which your browser can run directly. No servers, no deployment, no technical setup.
+
+#### The Pattern
+
+1. Pick a document from `context/` (a PRD, spec, or feature description)
+2. Ask Claude to build something based on it
+3. Claude generates an HTML file
+4. Open the file in your browser
+5. Tell Claude what to change
+6. Claude revises — repeat until you're satisfied
+
+#### What You Can Build
+
+- **Interactive dashboards** showing data or metrics from your documents
+- **Landing pages** that describe a feature as if it were already shipped
+- **Simple internal tools** like a decision tracker, risk register, or prioritization matrix
+- **Clickable prototypes** showing a user flow described in a spec
+
+#### Exercise 4.1: Build a Prototype
+
+Pick one document from `context/` and ask Claude to build something from it. Choose the scope that fits your role:
+
+**Option A — Dashboard (PMs, Analysts)**:
+```
+Read context/[your-file].md and build an interactive HTML dashboard that displays
+the key metrics, milestones, and status of this project. Include sections for risks
+and open questions. Save it as prototype.html so I can open it in my browser.
+```
+
+**Option B — Landing Page (PMs, Marketing)**:
+```
+Read context/[your-file].md and build a landing page for this feature as if it were
+already shipped. Include the value proposition, key benefits, and a call to action.
+Save it as prototype.html.
+```
+
+**Option C — Internal Tool (Any role)**:
+```
+Read context/[your-file].md and build a simple [decision tracker / risk register /
+prioritization matrix] as an interactive HTML page based on the data in the document.
+Save it as prototype.html.
+```
+
+After Claude generates the file, open it in your browser. Then tell Claude what to change — colors, layout, missing information, different emphasis. Iterate at least twice. The goal is to experience the describe → generate → critique → revise loop.
+
+**Stretch goal**: Ask Claude to make the prototype look polished enough to share with a stakeholder.
+
+---
+
+### Day 25–26: Connect Your Tools (MCP)
+
+**What you're doing**: Setting up Claude Code to read directly from a tool you already use at work, so you don't have to export files manually.
+
+#### What is MCP?
+
+MCP stands for Model Context Protocol. It's a way to let Claude Code connect to your work tools directly. Instead of this workflow:
+
+1. Export data from Jira → 2. Save as CSV → 3. Copy to `context/` → 4. Ask Claude to read it
+
+You get this:
+
+1. Ask Claude to query Jira directly
+
+MCP turns Claude Code from a tool that reads files into a tool that reads your entire work environment.
+
+#### How It Works
+
+MCP servers are small connectors that Claude Code uses to talk to external tools. You configure them once, and then Claude can query those tools whenever you ask. Claude will help you with the setup — you don't need to understand the technical details.
+
+#### Exercise 4.2: Connect a Tool with MCP
+
+> **Note**: This is the most technical exercise in the guide. Claude will walk you through every step. If you get stuck or aren't comfortable with the setup, it's fine to skip this one and come back later.
+
+Pick one tool you use daily:
+
+| Tool | What Claude Can Do With It |
+|---|---|
+| **Linear / Jira** | Read tickets, query project status, list sprint items |
+| **Notion** | Read wiki pages, search databases |
+| **Google Drive** | Read documents and spreadsheets |
+| **Slack** | Search message history |
+| **GitHub** | Read issues, PRs, and project boards |
+| **Figma** | Inspect design files and components |
+
+Then ask Claude:
+
+```
+Help me set up the MCP server for [tool name] so you can read from it directly.
+Walk me through the setup step by step.
+```
+
+Claude will guide you through:
+1. Installing the MCP server connector
+2. Configuring your credentials
+3. Testing the connection with a simple query
+
+Once connected, try a real query:
+```
+Using the [tool] connection, show me the open tickets assigned to me this sprint.
+```
+
+---
+
+### Day 27: Visualize Your Work
+
+**What you're doing**: Generating diagrams, flowcharts, and visual artifacts from your documents.
+
+#### What Claude Can Generate
+
+Claude can create visual representations of processes, flows, and structures described in your documents:
+
+- **Mermaid diagrams** — flowcharts, sequence diagrams, org charts. These render in GitHub, Notion, and many other tools.
+- **SVG files** — scalable graphics you can embed in presentations
+- **HTML visualizations** — interactive diagrams you open in your browser (similar to prototyping in Day 22-24)
+
+#### Exercise 4.3: Generate Visual Artifacts
+
+Pick a process, user flow, or architecture described in your documents and ask Claude to visualize it.
+
+**Option A — Mermaid flowchart**:
+```
+Read context/[your-file].md and generate a Mermaid flowchart showing the user journey
+described in this document. Include decision points and alternative paths.
+```
+
+**Option B — HTML diagram**:
+```
+Read context/[your-file].md and build an interactive HTML diagram showing the
+architecture / process / user flow described in this document. Save it as diagram.html.
+```
+
+**Option C — Presentation-ready visual**:
+```
+Read context/[your-file].md and generate an SVG diagram showing the key components
+and their relationships. Make it clean enough to include in a stakeholder presentation.
+```
+
+Try generating the same content in two different formats and see which works better for your audience.
+
+---
+
+### Day 28: Graduation — Your AI Workflow Playbook
+
+**What you're doing**: Documenting the personal system you've built over four weeks so you can sustain and share it.
+
+#### Exercise 4.4: Create Your AI Workflow Playbook
+
+This is your capstone exercise. Create a personal reference document that captures everything you've learned. Ask Claude to help:
+
+```
+Help me create my personal AI Workflow Playbook. Ask me questions about:
+- Which Claude Code workflows I've found most valuable
+- What CLAUDE.md rules I'd set up for my team
+- Which prompt templates I use regularly
+- What tools I'd connect with MCP
+Then organize my answers into a clean, shareable document.
+```
+
+Your playbook should include:
+1. **Your top 5 workflows** — the specific things you'll do with Claude Code regularly
+2. **Your CLAUDE.md rules** — what instructions you'd give Claude for your team's projects
+3. **Your prompt templates** — the refined versions you built in Exercise 3.4
+4. **Your tool connections** — which MCP servers are worth setting up
+5. **Your quality checklist** — how you verify Claude's outputs (from Exercise 2.5)
+
+Save this as a document you own and can share with your team. This is the most tangible artifact of the entire learning journey.
 
 ---
 
@@ -624,7 +994,11 @@ Read context/[filename].md and list all open questions.
 | Hallucination | When AI confidently states something false. Common, manageable, but requires vigilance. |
 | LLM | Large Language Model — the type of AI technology underlying Claude. |
 | Prompt | The instruction or question you give Claude. Prompt quality directly determines answer quality. |
-| Token | The unit of text an AI processes — roughly 3/4 of a word. Relevant because very long documents may need to be split into smaller files. |
+| Token | The unit of text an AI processes — roughly 3/4 of a word. Tokens determine cost — more tokens in your conversation means higher usage. Use `/cost` in Claude Code to check your spending. |
+| CLAUDE.md | A configuration file you place in a project folder to customize Claude Code's behavior for that project. Think of it as standing instructions Claude reads every time it starts. |
+| Sub-agent | When Claude Code splits a large task into smaller pieces and works on them in parallel — like delegating to assistants. You trigger this with prompts like "Do X and Y at the same time." |
+| MCP | Model Context Protocol — a way to connect Claude Code directly to tools like Jira, Linear, Notion, or Figma so it can read from them without you exporting files manually. |
+| Vibe coding | Describing what you want in plain language and letting Claude generate working code (HTML, CSS, JS) for you. No coding knowledge required — you review and iterate on the output. |
 
 ---
 
@@ -641,9 +1015,73 @@ Claude Code is powerful for the tasks described in this guide. It is not the rig
 
 ---
 
-## Appendix D: Going Further
+## Appendix D: Tips & Tricks
 
-Once you've completed the three weeks, options for going deeper:
+A collection of power-user techniques to get more out of Claude Code.
+
+### Session Management
+
+| Command | What It Does | When to Use It |
+|---|---|---|
+| `claude` | Start a fresh session | New task, clean slate |
+| `claude --continue` | Resume your last conversation | Picking up where you left off (saves tokens — Claude doesn't re-read everything) |
+| `claude --resume` | Pick a specific past session | Jumping back to a particular conversation |
+
+**Cost-saver**: `--continue` is cheaper than starting fresh because Claude already has your context loaded. Use it whenever you're working on the same project across sessions.
+
+### Check Your Spending
+
+Type `/cost` inside Claude Code to see how many tokens you've used in the current session. This helps you:
+- Understand which queries are expensive (long documents, complex synthesis)
+- Decide when to start a fresh session vs. continue
+- Stay within your budget
+
+### CLAUDE.md Hierarchy
+
+Claude Code reads `CLAUDE.md` files at multiple levels:
+- **Personal** (`~/.claude/CLAUDE.md`) — your preferences across all projects
+- **Project** (`CLAUDE.md` in the project root) — rules for this specific project (this is what ProductAgentLab uses)
+- **Folder** (`CLAUDE.md` in a subfolder) — overrides for specific parts of a project
+
+Rules combine from all levels. More specific files take priority.
+
+### Parallel Sub-Agents
+
+For tasks with multiple independent parts, ask Claude to work on them simultaneously:
+
+```
+Read the documents in context/ and do these three things at the same time:
+1. Summarize the key decisions in each document
+2. List all open questions across all documents
+3. Identify any contradictions between documents
+```
+
+Claude will spin up sub-agents to handle each part in parallel — faster than doing them one at a time.
+
+### Verify Sources
+
+When Claude makes a claim, ask: **"Which document is that from?"** This is the simplest, most effective hallucination check. If Claude can't point to a specific file and section, treat the claim as unverified.
+
+### Model Selection
+
+Claude Code uses the best available model by default. If you find responses are slow or expensive for simple tasks, you can use `/model` to switch to a faster model for routine queries and switch back for complex analysis.
+
+### MCP Servers: Connect Your Work Tools
+
+MCP (Model Context Protocol) lets Claude Code read directly from tools like:
+- **Jira / Linear** — query tickets and project status
+- **Notion** — read wiki pages and databases
+- **Figma** — inspect design files
+- **Slack** — search message history
+- **Google Drive** — read docs and spreadsheets
+
+Instead of exporting files and saving them to `context/`, Claude queries the tool directly. See Week 4 Day 25-26 for a hands-on exercise, or check the [MCP documentation](https://code.claude.com/docs/en/mcp).
+
+---
+
+## Appendix E: Going Further
+
+Once you've completed the four weeks, options for going deeper:
 
 **Add more document types**: Export Jira or Linear tickets as CSV, export Confluence pages as markdown, pull in Slack thread summaries. The more of your real working context lives in `context/`, the more useful Claude becomes.
 
@@ -665,4 +1103,4 @@ Once you've completed the three weeks, options for going deeper:
 
 ---
 
-*This guide was self-generated as a structured alternative to a paid course. Share it with your product, UX, and research teammates. Improve it as you learn. The prompts you write in Week 3 are the most valuable artifact — they're specific to how your team works and what your product needs.*
+*This guide was self-generated as a structured alternative to a paid course. Share it with your product, UX, and research teammates. Improve it as you learn. The CLAUDE.md rules you write, the prototypes you build, and the prompt templates you customize are the most valuable artifacts — they're specific to how your team works and what your product needs.*

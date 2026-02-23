@@ -17,7 +17,7 @@ prompts/templates.md              Reusable prompt templates organized by role (P
 .claude/skills/audit/SKILL.md    /audit — detailed single-document audit
 .claude/skills/learn/SKILL.md   /learn — guided syllabus walkthrough with progress tracking
 progress/journal.md               Your personal learning journal (auto-created by /learn)
-SYLLABUS.md                       3-week self-directed learning guide
+SYLLABUS.md                       4-week self-directed learning guide
 CLAUDE.md                         This file — project instructions for Claude Code
 ```
 
@@ -53,3 +53,5 @@ There is no custom application code. The workflow is:
 5. **Follow the five-element prompt structure** when suggesting prompt modifications: Role, Task, Constraints, Output format, Quality bar — as defined in `prompts/templates.md`.
 
 6. **Reference the syllabus** (`SYLLABUS.md`) for learning guidance rather than re-explaining concepts it already covers. Point to specific sections when relevant.
+
+7. **When users ask about customizing Claude Code**, reference the `CLAUDE.md` file in this project as a working example, and point to Week 3 Day 15-16 of the syllabus for a guided exercise on creating their own.
