@@ -5,9 +5,9 @@
 
 Most examples in this guide use PM scenarios (PRDs, roadmaps, stakeholder updates) because they're the broadest common denominator across product orgs. But the concepts, tools, and techniques apply equally to UX research synthesis, design critique, content strategy, and product analytics. Where workflows differ meaningfully by role, the guide calls that out with **role-specific variations**.
 
-**What this is**: A 3-week learning path that starts from zero and ends with a set of repeatable AI-powered workflows you use daily. It uses this `pm-agent-lab` project as a hands-on practice environment.
+**What this is**: A 3-week learning path that starts from zero and ends with a set of repeatable AI-powered workflows you use daily.
 
-**What this is not**: A coding course. You will see code files here. You do not need to edit or understand them.
+**What this is not**: A coding course. There is no code to write, run, or debug.
 
 ---
 
@@ -31,64 +31,72 @@ Claude Code is a tool made by Anthropic (the company behind Claude) that runs on
 
 **The practical implication**: If you paste a summary of a PRD (or a usability report, or a design spec) into Claude.ai and ask questions, it only knows what you pasted. Claude Code can read your entire document *and* every related document in a folder simultaneously. That's the fundamental difference.
 
-### What is This `pm-agent-lab` Project?
+### What is This Project?
 
-This project is a practical learning environment. It gives you a working system that:
-- Reads your product documents (`context/` folder)
-- Builds a searchable memory from them (`memory/` folder)
-- Answers questions about your documents with citations to sources
+This project is a structured learning environment. It gives you:
+- A `context/` folder where you place your product documents
+- A library of reusable prompt templates in `prompts/templates.md`
+- This syllabus to guide you through learning
 
-Think of it as building a "product brain" — a private, queryable version of all your product knowledge.
-
-**It uses the Anthropic API** (the same AI that powers Claude.ai) but runs entirely on your laptop.
+You use Claude Code directly to read your documents and answer questions about them. There's no custom software to install or run — Claude Code is the tool.
 
 ### The Three Concepts You Must Understand
 
 **1. Context**
-The information you give Claude before asking a question. Bad context = generic answers. Good context = specific, accurate answers. Everything you put in the `context/` folder becomes Claude's context.
+The information Claude can see when answering a question. Bad context = generic answers. Good context = specific, accurate answers. Everything you put in the `context/` folder becomes available to Claude when you ask it to read those files.
 
 **2. Grounding**
 Making Claude's answers stick to your actual documents rather than its general knowledge. A grounded answer says "Based on the MMF-SQC spec..." An ungrounded answer says "Generally speaking, compliance systems should..." One is useful, one is noise.
 
 **3. Hallucination**
-When AI confidently states something false. It happens because the model doesn't "know" it doesn't know — it predicts the most likely next word. This is why every answer in this system *requires citations*. If there's no citation, treat the answer as unverified.
+When AI confidently states something false. It happens because the model doesn't "know" it doesn't know — it predicts the most likely next word. This is why you should always ask Claude to cite which document it's drawing from. If there's no citation, treat the answer as unverified.
 
 ---
 
 ## Week 1: Get Set Up and Start Getting Value
 
-**Goal**: By the end of this week, Claude Code is running on your laptop, you've ingested your first product documents, and you've gotten your first grounded answer to a real work question.
+**Goal**: By the end of this week, Claude Code is running on your laptop, you've loaded your first product documents, and you've gotten your first grounded answer to a real work question.
 
 ---
 
 ### Day 1–2: Setup
 
-**What you're doing**: Installing everything and running your first command.
+**What you're doing**: Installing Claude Code and running your first command.
 
 #### Setup Checklist
 
-- [ ] Install Node.js — download from [nodejs.org](https://nodejs.org), choose the LTS version. Just click through the installer like any other app.
-- [ ] Install Claude Code — open Terminal (Mac) or Command Prompt (Windows) and run:
+- [ ] Install Claude Code — open Terminal (Mac: press Cmd + Space, type "Terminal", press Enter) and run:
   ```
   npm install -g @anthropic-ai/claude-code
   ```
-- [ ] Get an Anthropic API key — go to [console.anthropic.com](https://console.anthropic.com), create an account, and generate a key. It looks like `sk-ant-...`
-- [ ] Add your API key to this project — open the `.env` file in this project and add:
+  (If this command fails with "npm not found", you need Node.js first: download from [nodejs.org](https://nodejs.org), choose the LTS version, install it, then try the command again.)
+- [ ] Clone or download this project to your computer
+- [ ] Open Terminal, navigate to this project folder:
   ```
-  ANTHROPIC_API_KEY=sk-ant-your-key-here
+  cd ~/Documents/Claude/ProductAgentLab
+  ```
+- [ ] Start Claude Code by typing:
+  ```
+  claude
   ```
 
-> **Important**: The `.env` file contains your API key. Never share it, commit it to git, or send it to anyone. The `.gitignore` file in this project already prevents it from being accidentally uploaded.
+That's it. Claude Code is now running and can see all the files in this project.
 
-#### The Only Two Commands You Need This Week
+#### Your First Interaction
 
-Open Terminal, navigate to this project folder, and use:
+Once Claude Code is running, try typing:
+
 ```
-npm run ingest    → reads your documents and builds memory
-npm run ask       → asks Claude a question about your documents
+Read the files in context/ and give me a brief summary of each document.
 ```
 
-That's it. Everything else this week is about what you put into those commands.
+Claude will read each document in the folder and summarize it. This is your first grounded interaction — Claude is answering based on your actual files, not its general knowledge.
+
+#### How to Exit and Restart
+
+- Type `/exit` or press Ctrl+C to leave Claude Code
+- To start it again, navigate to the project folder and type `claude`
+- Claude Code remembers project context between sessions when you're in the same folder
 
 ---
 
@@ -96,7 +104,7 @@ That's it. Everything else this week is about what you put into those commands.
 
 **What you're doing**: Putting your own product documents into the system and asking it real questions.
 
-#### Exercise 1.1: Ingest Your First Document
+#### Exercise 1.1: Add Your First Document
 
 1. Find ONE real work document you already have — see below for ideas by role:
    - **PM**: a PRD, feature spec, or roadmap document
@@ -105,28 +113,37 @@ That's it. Everything else this week is about what you put into those commands.
    - **Any role**: meeting notes, strategy docs, or competitive analysis
 2. Save it as a `.md` or `.txt` file
 3. Copy it into the `context/` folder in this project
-4. In Terminal, run: `npm run ingest`
 
-Watch what happens. You'll see it reading your file and summarizing it. When it's done, a `memory/` folder will contain searchable summaries.
-
-> **Note**: The two files already in `context/` (`MMF-SQC-Compliance-Report.md` and `MMF-SQC-Portfolio-Dashboards.md`) are example documents. You can replace them with your own, or keep them and add yours alongside.
+That's it — no ingestion step needed. Claude Code reads files directly when you ask it to.
 
 #### Exercise 1.2: Ask Real Questions
 
-Replace the bracketed parts with your actual content:
+Start Claude Code (`claude`) and try these. Replace the bracketed parts with your actual content:
 
-```bash
-npm run ask -- "What are the key decisions made about [feature name]?"
-npm run ask -- "What risks are mentioned in this spec?"
-npm run ask -- "What open questions still need to be resolved?"
-npm run ask -- "Summarize the acceptance criteria for [feature]"
-npm run ask -- "What are the stated success metrics?"
+```
+Read all files in context/ and tell me: what are the key decisions made about [feature name]?
+```
+
+```
+Based on the documents in context/, what risks are mentioned?
+```
+
+```
+Review the documents in context/ and list all open questions that still need to be resolved.
+```
+
+```
+Read context/[your-file-name].md and summarize the acceptance criteria.
+```
+
+```
+Based on the documents in context/, what are the stated success metrics?
 ```
 
 **What to pay attention to**:
-- Does the answer include a citation like `(source: context/your-file.md#chunk_id)`? Good — it's grounded.
-- Does it say "Not found in current context"? Also good — it's not making things up.
-- Does it give a confident answer with no citation? That's a warning sign. Verify independently.
+- Does Claude reference the specific file it's drawing from? Good — it's grounded.
+- Does it say it can't find that information in the documents? Also good — it's not making things up.
+- Does it give a confident answer without referencing any document? That's a warning sign. Ask "Which document is that from?" to check.
 
 #### Reflection (Do This — It Matters)
 
@@ -169,11 +186,11 @@ Before adding documents, filter them:
 - Does it contain decisions or facts, or just discussion?
 - Would knowing this help Claude give me a better answer?
 
-Add 5–8 documents to `context/`. Re-run `npm run ingest`.
+Add 5–8 documents to `context/`.
 
 #### Exercise 1.4: Test the Limits
 
-Ask Claude something you know is NOT in your documents. It should say it doesn't have that information. If it answers confidently without a citation, that's a hallucination. Testing the limits early builds appropriate (not blind) trust in the tool.
+Ask Claude something you know is NOT in your documents. It should say it doesn't have that information. If it answers confidently without referencing a document, that's a hallucination. Testing the limits early builds appropriate (not blind) trust in the tool.
 
 ---
 
@@ -194,7 +211,7 @@ Ask Claude something you know is NOT in your documents. It should say it doesn't
 Claude is best used as a **first drafter and critical reviewer** — not an oracle. The workflow that works:
 
 1. Add relevant background documents to `context/`
-2. Run `npm run ingest`
+2. Start Claude Code and ask it to read those documents
 3. Ask for a draft or analysis
 4. Review critically — edit, add nuance, correct errors
 5. Ask Claude to refine based on your changes
@@ -204,18 +221,18 @@ The workflow that produces garbage: give Claude no context, accept the output, s
 
 #### Prompt Templates for Document Work
 
-Save these in `prompts/` as a reference. Replace `[brackets]` with your specifics.
+These are already saved in `prompts/templates.md` with the full five-element structure. Here are the short versions — replace `[brackets]` with your specifics:
 
 **PRD Executive Summary:**
 ```
-Based on the context provided, write a one-page executive summary of the [feature name] PRD.
+Read the documents in context/ and write a one-page executive summary of the [feature name] PRD.
 Include: problem statement, proposed solution, success metrics, key risks, and open decisions.
-Cite your sources. If critical information is missing, list what's needed.
+Cite the specific document for each claim. If critical information is missing, list what's needed.
 ```
 
 **Risk Identification:**
 ```
-Review the context for [project name] and identify all risks mentioned, implied, or
+Review the documents in context/ for [project name] and identify all risks mentioned, implied, or
 typically associated with this type of work.
 Categorize each as: Technical / User Adoption / Timeline / Stakeholder.
 Rate each risk High / Medium / Low with a brief rationale.
@@ -224,30 +241,30 @@ Cite sources for every risk. Do not invent risks not grounded in the documents.
 
 **Open Questions Audit:**
 ```
-Based on all documents in context, list every unresolved question, outstanding decision,
+Based on all documents in context/, list every unresolved question, outstanding decision,
 and piece of missing information that a PM would need to address before this feature ships.
 Group by: Needs stakeholder input / Needs engineering answer / Needs user research.
-Cite sources.
+Cite the source document for each item.
 ```
 
 **Stakeholder Update Draft:**
 ```
-Draft a weekly stakeholder update for [project name].
+Draft a weekly stakeholder update for [project name] based on the documents in context/.
 Format:
 - Status: [On Track / At Risk / Blocked]
 - What happened this week: 3 bullets max
 - What's happening next week: 3 bullets max
 - Decisions needed: any blockers that require stakeholder input
-- Key metrics: only if mentioned in context, do not fabricate numbers
-Tone: factual, concise, no jargon. Cite context sources.
+- Key metrics: only if mentioned in the documents, do not fabricate numbers
+Tone: factual, concise, no jargon. Cite source documents.
 ```
 
 #### Exercise 2.1: Real-World Test
 
-Pick one current or upcoming project. Add its relevant documents to `context/`. Run these three queries and compare the output to your own mental model:
-1. "Summarize the current state of this project"
-2. "What are the top 3 risks?"
-3. "What are the open questions?"
+Pick one current or upcoming project. Add its relevant documents to `context/`. Start Claude Code and run these three queries, comparing the output to your own mental model:
+1. "Read all documents in context/ and summarize the current state of this project"
+2. "Based on the documents in context/, what are the top 3 risks?"
+3. "What are the open questions across these documents?"
 
 Where does Claude add value? Where is it wrong? What did it miss because it wasn't in the documents?
 
@@ -259,7 +276,7 @@ Where does Claude add value? Where is it wrong? What did it miss because it wasn
 
 This is one of the highest-leverage use cases for PMs. Being able to quickly understand *why* engineering made a decision — without a 30-minute meeting — changes how you work.
 
-#### Types of Engineering Context Worth Ingesting
+#### Types of Engineering Context Worth Adding
 
 - Sprint planning documents or retrospective notes
 - Architecture Decision Records (ADRs) — ask your engineers, they may already have these
@@ -269,13 +286,15 @@ This is one of the highest-leverage use cases for PMs. Being able to quickly und
 
 #### Exercise 2.2: Understand a Technical Decision
 
-Ask your engineering team for one ADR or a document explaining a technical choice. Add it to `context/` and run:
+Ask your engineering team for one ADR or a document explaining a technical choice. Add it to `context/` and ask Claude:
 
-```bash
-npm run ask -- "Why did we choose [technology/approach]? What alternatives were considered?"
-npm run ask -- "What are the long-term implications of the decision in [doc name]?"
-npm run ask -- "What constraints does this technical decision impose on product decisions?"
-npm run ask -- "What would a PM need to know about the tradeoffs here?"
+```
+Read context/[adr-filename].md and explain:
+- Why did we choose this approach?
+- What alternatives were considered?
+- What are the long-term implications?
+- What constraints does this impose on product decisions?
+- What would a PM need to know about the tradeoffs here?
 ```
 
 **The goal is not to become technical.** The goal is to ask better questions in engineering conversations and to understand when product decisions are constrained by technical ones.
@@ -293,37 +312,37 @@ npm run ask -- "What would a PM need to know about the tradeoffs here?"
    - Survey results exported as text or CSV
    - Support ticket themes from your customer success team
    - NPS comment analysis
-2. Add to `context/`, re-run `npm run ingest`
-3. Ask synthesis questions
+2. Add them to `context/`
+3. Start Claude Code and ask synthesis questions
 
 #### Synthesis Prompt Templates
 
 **Themes Extraction:**
 ```
-Based on the user research in context, identify the top 5 recurring themes across feedback.
+Read all user research documents in context/ and identify the top 5 recurring themes across feedback.
 For each theme provide:
 - A short name and description
-- 2–3 example quotes or data points (with citations)
+- 2–3 example quotes or data points (cite the specific document)
 - The implication for product decisions
 Do not include themes not supported by the documents.
 ```
 
 **Opportunity Identification:**
 ```
-Based on user research in context, what are the highest-impact unmet user needs?
+Based on the user research documents in context/, what are the highest-impact unmet user needs?
 For each need, estimate:
 - Frequency: how many users mentioned it?
 - Severity: how much friction or pain?
 - Current workaround: what do users do today instead?
-Cite sources. If frequency data isn't available, say so.
+Cite source documents. If frequency data isn't available, say so.
 ```
 
 **Gap Analysis:**
 ```
-Compare the user needs described in the research to the features described in the product spec.
+Compare the user needs described in the research documents to the features described in the product spec.
 What user needs are currently unaddressed?
 What features in the spec don't have corresponding user needs stated in the research?
-Cite sources for both sides.
+Cite source documents for both sides.
 ```
 
 #### Exercise 2.3: Synthesize a Real Research Batch
@@ -340,7 +359,7 @@ If you're in UX, design, or research, these exercises are your equivalent of the
 
 **Usability Findings Review:**
 ```
-Based on the usability test reports in context, identify the top usability issues across all sessions.
+Read the usability test reports in context/ and identify the top usability issues across all sessions.
 For each issue:
 - Task or screen where it occurred
 - Severity: Critical (blocks task) / Major (significant friction) / Minor (annoyance)
@@ -351,7 +370,7 @@ Cite specific sessions or reports. Do not generalize beyond what's documented.
 
 **Design Spec Consistency Check:**
 ```
-Review the design specs and UI documentation in context.
+Review the design specs and UI documentation in context/.
 Identify any inconsistencies in:
 - Interaction patterns (same action handled differently across screens)
 - Terminology (same concept called different names)
@@ -361,7 +380,7 @@ Cite specific documents for each inconsistency found.
 
 **Journey Map Gap Analysis:**
 ```
-Based on the user journey maps and research in context, identify:
+Based on the user journey maps and research in context/, identify:
 1. Steps in the journey where users experience the most friction (cite evidence)
 2. Steps where we have no research data at all (gaps in understanding)
 3. Moments where the experience differs significantly between user segments
@@ -370,7 +389,7 @@ For each finding, note whether it's based on research evidence or is an assumpti
 
 **Accessibility Review Prep:**
 ```
-Review the design documentation in context and flag:
+Review the design documentation in context/ and flag:
 - Components or interactions that may pose accessibility concerns
 - Any stated accessibility requirements and whether they appear addressed
 - Gaps: common accessibility considerations not mentioned in the docs
@@ -379,12 +398,13 @@ Reference WCAG 2.1 AA as the baseline. Cite specific documents for every finding
 
 #### Exercise 2.4 (UX): Audit a Design Decision
 
-Take a recent design spec or usability report. Add it to `context/` and ask:
+Take a recent design spec or usability report. Add it to `context/` and ask Claude:
 
-```bash
-npm run ask -- "What user evidence supports the current design approach?"
-npm run ask -- "What usability issues were found, and which are still unresolved?"
-npm run ask -- "Where does the design spec make assumptions about user behavior without citing research?"
+```
+Read the design spec and usability reports in context/ and tell me:
+- What user evidence supports the current design approach?
+- What usability issues were found, and which are still unresolved?
+- Where does the design spec make assumptions about user behavior without citing research?
 ```
 
 The value isn't that Claude is a UX expert — it's that it can systematically cross-reference your design docs against your research docs and find gaps a human might miss when switching between tabs.
@@ -401,7 +421,7 @@ The value isn't that Claude is a UX expert — it's that it can systematically c
 
 **What you're doing**: Creating reusable templates so every query doesn't start from scratch.
 
-#### What Makes a Good PM Prompt
+#### What Makes a Good Prompt
 
 A strong prompt has five elements:
 
@@ -417,46 +437,9 @@ Prompts with all five elements give consistently better outputs than vague quest
 
 #### Starter Prompt Library
 
-Create a file `prompts/templates.md` and populate it with templates that match your actual recurring tasks. Start with these and add your own:
+The file `prompts/templates.md` already contains 18 templates organized by role (PM, UX, Research, Cross-functional). Browse it, pick the ones relevant to your work, and start customizing them.
 
-```markdown
-## Feature Readiness Check
-When to use: Before recommending a feature for launch
-
-You are a senior PM doing a pre-launch readiness review for [feature name].
-Review all context provided and assess:
-1. Are acceptance criteria clearly defined? (Yes / No / Partially — explain)
-2. Are known risks mitigated, accepted, or still open? List each with status.
-3. Are all open questions resolved? List any that aren't.
-4. What is missing that you'd need before recommending launch?
-Cite sources for every finding. Flag any assumption not grounded in context.
-Output format: structured checklist, not prose.
-
----
-
-## Competitive Feature Response
-When to use: Analyzing a competitor announcement
-
-Review the competitive context provided. Analyze [competitor name]'s [feature/announcement]:
-1. What user problem are they solving?
-2. How does their approach compare to ours?
-3. What segments of our users might this affect, and how?
-4. What are our options in response? List each with tradeoffs.
-Be explicit about what is in context vs. what would require additional research.
-Avoid speculation labeled as fact.
-
----
-
-## Sprint Retrospective Synthesis
-When to use: After a sprint, to synthesize notes into decisions
-
-Based on retrospective notes in context, produce a structured summary:
-- What worked well (keep doing): max 3 bullets with supporting evidence
-- What didn't work (change or stop): max 3 bullets with supporting evidence
-- Action items agreed upon: list with owner if mentioned
-- Open questions or tensions not yet resolved
-Cite source documents for every item.
-```
+To use a template: open it, copy the prompt text, replace `[brackets]` with your specifics, and paste it into Claude Code.
 
 #### Exercise 3.1: Write Your Three Templates
 
@@ -467,6 +450,8 @@ Some starting points by role:
 - **UX Designer**: design review checklist, handoff documentation audit, interaction pattern consistency check
 - **UX Researcher**: research synthesis, participant recruitment screener review, findings-to-recommendations bridge
 - **Product Analyst**: metric definition audit, experiment results summary, data gap identification
+
+Add your templates to `prompts/templates.md` in the "My Custom Templates" section at the bottom.
 
 ---
 
@@ -508,11 +493,11 @@ Train yourself to notice these:
 
 Take 5 answers Claude gave you during Weeks 1–2. For each:
 1. Identify every factual claim
-2. Check: was this in your context? (find the source)
+2. Check: was this in your documents? (ask Claude "Which document is that from?")
 3. Is the claim accurate?
 4. What would have happened if you had used this without checking?
 
-The goal is not paranoia — it's calibration. After this exercise, you should have a clear sense of what this specific system is reliable for and what it isn't.
+The goal is not paranoia — it's calibration. After this exercise, you should have a clear sense of what this tool is reliable for and what it isn't.
 
 ---
 
@@ -529,23 +514,21 @@ The goal is not paranoia — it's calibration. After this exercise, you should h
 - What worked, what didn't, and what surprised you
 
 **Handle with care:**
-- Your `.env` file — it contains your API key. Never share it. Each person needs their own.
 - Documents in `context/` that contain sensitive business data, personal data, or unreleased product plans. Check your company's AI usage policy before adding anything confidential.
-- The `memory/` folder contains summaries of your specific documents — it's only useful alongside those documents.
 
 #### How to Run a Team Onboarding Session
 
 When introducing this to colleagues, structure it as:
 
-1. **Demo first (10 min)**: Show a real example. Use a real document. Ask a real question. Show the citation in the answer.
+1. **Demo first (10 min)**: Show a real example. Open Claude Code, point it at a real document, ask a real question. Show how it references the source document in the answer.
 2. **Explain the why (5 min)**: Why does context matter? What happens when Claude doesn't have it? (Test this live — ask something it can't answer.)
-3. **Live setup (15 min)**: Walk through installation together. Have them add their own document.
-4. **First exercise (20 min)**: Everyone ingests one document and asks three questions.
+3. **Live setup (15 min)**: Walk through installing Claude Code together. Have them add their own document to `context/`.
+4. **First exercise (20 min)**: Everyone asks Claude three questions about their document.
 5. **Debrief (10 min)**: What surprised them? What questions came up?
 
 #### Exercise 3.3: Teach One Colleague
 
-Find one person who might benefit. Walk them through setup and their first `npm run ask`. Write down the questions they asked that you couldn't answer — those are gaps to fix either in documentation or in this guide.
+Find one person who might benefit. Walk them through setup and their first Claude Code session. Write down the questions they asked that you couldn't answer — those are gaps to fix either in documentation or in this guide.
 
 ---
 
@@ -558,22 +541,28 @@ Find one person who might benefit. Walk them through setup and their first `npm 
 cd ~/Documents/Claude/ProductAgentLab
 ```
 
-**The three commands you'll use:**
+**Start Claude Code:**
 ```bash
-npm run ingest           # Read context/ and build memory
-npm run ask -- "..."     # Ask a grounded question
-npm run view             # Open memory browser at localhost:3333
+claude
+```
+
+**Inside Claude Code, useful commands:**
+```
+/help                    # See all available commands
+/exit                    # Leave Claude Code
+```
+
+**Example questions to ask Claude Code:**
+```
+Read all the files in context/ and summarize each one.
+Based on the documents in context/, what are the top risks for [project]?
+Read context/[filename].md and list all open questions.
 ```
 
 **Troubleshooting:**
-```bash
-node --version    # Should show v18 or higher. If not, reinstall Node.js.
-cat .env          # Check that your API key is set (should show your sk-ant-... key)
-```
-
-If `npm run ingest` fails with an API error: check that your API key in `.env` is correct and that your Anthropic account has credits.
-
-If `npm run ask` returns "I found limited relevant context": your documents are in `context/` but the question keywords don't match well. Try rephrasing, or add more documents.
+- "claude: command not found" → Claude Code isn't installed. Run: `npm install -g @anthropic-ai/claude-code`
+- "npm: command not found" → Node.js isn't installed. Download from [nodejs.org](https://nodejs.org)
+- Claude gives generic answers not based on your documents → make sure you're asking it to read files from `context/`, e.g. "Read the files in context/ and..."
 
 ---
 
@@ -581,21 +570,13 @@ If `npm run ask` returns "I found limited relevant context": your documents are 
 
 | Term | What It Means in Plain English |
 |---|---|
-| API / API key | A way for software to communicate with another service. Your API key is like a password that lets this project talk to Anthropic's Claude. |
 | CLI / Terminal | The text-based window where you type commands. Looks old-fashioned but is incredibly powerful. |
-| Chunk | A piece of a document after it's been split into sections for processing. A 10-page PRD might become 8 chunks. |
 | Context | The documents and information Claude can see when answering. More relevant context = better answers. |
-| `.env` file | A hidden file that stores sensitive configuration like API keys. The dot at the start makes it hidden in Finder. |
 | Grounding | Anchoring Claude's answers to your specific documents rather than its general training. |
 | Hallucination | When AI confidently states something false. Common, manageable, but requires vigilance. |
-| Ingestion | The process of reading your documents and building searchable memory from them. |
 | LLM | Large Language Model — the type of AI technology underlying Claude. |
-| Memory | The stored summaries of your documents that Claude can search when answering questions. |
-| Node.js | The software environment this project runs in. You don't need to understand it; you just need it installed. |
 | Prompt | The instruction or question you give Claude. Prompt quality directly determines answer quality. |
-| RAG | Retrieval-Augmented Generation. A technique that makes AI answers grounded in specific documents rather than general knowledge. What this project does. |
-| Token | The unit of text an AI processes — roughly ¾ of a word. Relevant for understanding why very long documents get split into chunks. |
-| TypeScript | The programming language the code in `src/` is written in. You don't need to read or edit it. |
+| Token | The unit of text an AI processes — roughly 3/4 of a word. Relevant because very long documents may need to be split into smaller files. |
 
 ---
 
@@ -616,14 +597,14 @@ Claude Code is powerful for the tasks described in this guide. It is not the rig
 
 Once you've completed the three weeks, options for going deeper:
 
-**Make the memory smarter**: The current system finds relevant chunks using keyword matching. A more advanced approach uses "embeddings" — a way of measuring meaning similarity rather than just word overlap. This is the "Week 2 upgrade" ChatGPT's scaffolding hinted at. Search for "semantic search with Anthropic embeddings" when you're ready.
+**Add more document types**: Export Jira or Linear tickets as CSV, export Confluence pages as markdown, pull in Slack thread summaries. The more of your real working context lives in `context/`, the more useful Claude becomes.
 
-**Automate ticket ingestion**: If your team uses Jira or Linear, you can export tickets as JSON or CSV and ingest them. This lets you ask questions like "what are the most common themes in bugs filed against X feature?" Search for "[your tool] export to CSV" and add those files to `context/`.
+**Explore Claude Code's full capabilities**: Claude Code can do more than read files — it can write files, run commands, search codebases, and automate multi-step workflows. Once you're comfortable with the basics, explore `/help` inside Claude Code to see what else is available.
 
-**Build a team shared memory**: Right now this runs locally. You can host the same pattern on a shared server so the whole team queries the same context library. This is an engineering task — bring in a developer when you're ready.
+**Set up project-specific instructions**: The `CLAUDE.md` file in this project tells Claude Code how to behave (cite sources, don't hallucinate, etc.). You can create a `CLAUDE.md` in any project folder to customize Claude's behavior for that specific context.
 
 **Official documentation**:
-- Claude Code: [docs.anthropic.com](https://docs.anthropic.com) → search "Claude Code"
+- Claude Code: [docs.anthropic.com](https://docs.anthropic.com) — search "Claude Code"
 - Anthropic prompt engineering guide: same site, search "prompt engineering"
 
 ---
