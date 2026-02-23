@@ -1,9 +1,6 @@
 ---
 name: audit
-description: Run a structured audit of a specific document in context/ — checking for completeness, consistency, and gaps.
-disable-model-invocation: true
-argument-hint: [filename in context/, e.g. "my-prd.md"]
-allowed-tools: Read, Glob, Grep
+description: Run a structured audit of a specific document in context/ — checking for completeness, consistency, and gaps. Pass the filename as an argument.
 ---
 
 You are a thorough but fair document reviewer helping a product team member improve their work.

@@ -25,7 +25,7 @@ Claude Code is a tool made by Anthropic (the company behind Claude) that runs on
 |---|---|---|
 | Where it runs | Your browser | Your terminal (command line) |
 | What it can see | Only text you paste in | Entire folders and files on your laptop |
-| Memory between conversations | None | Can maintain context within a project |
+| Memory between conversations | Projects feature stores context | Reads project files fresh each session; use `--continue` to resume a conversation |
 | Can it automate tasks? | No | Yes — it can write files, run scripts, explore codebases |
 | Good for | Quick questions, writing help | Sustained work on a specific project |
 
@@ -70,7 +70,7 @@ When AI confidently states something false. It happens because the model doesn't
   npm install -g @anthropic-ai/claude-code
   ```
   (If this command fails with "npm not found", you need Node.js first: download from [nodejs.org](https://nodejs.org), choose the LTS version, install it, then try the command again.)
-- [ ] Clone or download this project to your computer
+- [ ] Download this project folder to your computer (from GitHub, click the green "Code" button, then "Download ZIP")
 - [ ] Open Terminal, navigate to this project folder:
   ```
   cd ~/Documents/Claude/ProductAgentLab
@@ -115,11 +115,18 @@ This project comes with four built-in commands you can use anytime inside Claude
 
 You can also pass arguments to some commands, e.g. `/analyze risks` to focus on risks only, or `/audit my-prd.md` to audit a specific file.
 
-#### How to Exit and Restart
+#### Useful Commands to Know Right Away
 
-- Type `/exit` or press Ctrl+C to leave Claude Code
-- To start it again, navigate to the project folder and type `claude`
-- Claude Code remembers project context between sessions when you're in the same folder
+- `/help` — see all available commands (use this whenever you're stuck)
+- `/exit` or Ctrl+C — leave Claude Code
+
+#### How to Exit and Resume
+
+- To start a new session: navigate to the project folder and type `claude`
+- To resume where you left off: type `claude --continue` (picks up your last conversation)
+- To pick a specific past session: type `claude --resume`
+
+**Important**: Each new `claude` session starts fresh — Claude reads your project files but does not remember previous conversations. Use `--continue` when you want to build on earlier work, which is especially useful during the multi-week learning journey.
 
 ---
 
@@ -566,7 +573,9 @@ cd ~/Documents/Claude/ProductAgentLab
 
 **Start Claude Code:**
 ```bash
-claude
+claude                   # New session
+claude --continue        # Resume your last conversation
+claude --resume          # Pick a past session to resume
 ```
 
 **Inside Claude Code, built-in project commands:**
@@ -581,7 +590,12 @@ claude
 /exit                    # Leave Claude Code
 ```
 
-**Or just ask questions directly:**
+**Quick one-off question (without starting an interactive session):**
+```bash
+claude -p "Read context/my-prd.md and list the top 3 risks"
+```
+
+**Or ask questions directly inside Claude Code:**
 ```
 Read all the files in context/ and summarize each one.
 Based on the documents in context/, what are the top risks for [project]?
@@ -592,6 +606,7 @@ Read context/[filename].md and list all open questions.
 - "claude: command not found" → Claude Code isn't installed. Run: `npm install -g @anthropic-ai/claude-code`
 - "npm: command not found" → Node.js isn't installed. Download from [nodejs.org](https://nodejs.org)
 - Claude gives generic answers not based on your documents → make sure you're asking it to read files from `context/`, e.g. "Read the files in context/ and..."
+- Claude doesn't remember your last session → use `claude --continue` instead of `claude`
 
 ---
 
@@ -628,13 +643,21 @@ Once you've completed the three weeks, options for going deeper:
 
 **Add more document types**: Export Jira or Linear tickets as CSV, export Confluence pages as markdown, pull in Slack thread summaries. The more of your real working context lives in `context/`, the more useful Claude becomes.
 
-**Explore Claude Code's full capabilities**: Claude Code can do more than read files — it can write files, run commands, search codebases, and automate multi-step workflows. Once you're comfortable with the basics, explore `/help` inside Claude Code to see what else is available.
+**Install document skills**: Anthropic publishes official skills for reading Excel, Word, PowerPoint, and PDF files. Install them from [github.com/anthropics/skills](https://github.com/anthropics/skills) to work with these formats directly in Claude Code.
+
+**Connect external tools via MCP**: Model Context Protocol (MCP) lets Claude Code connect to Jira, Linear, Notion, Figma, Slack, and more. This turns Claude Code from a file-level tool into a connected workflow engine. See [code.claude.com/docs/en/mcp](https://code.claude.com/docs/en/mcp).
 
 **Set up project-specific instructions**: The `CLAUDE.md` file in this project tells Claude Code how to behave (cite sources, don't hallucinate, etc.). You can create a `CLAUDE.md` in any project folder to customize Claude's behavior for that specific context.
 
-**Official documentation**:
-- Claude Code: [docs.anthropic.com](https://docs.anthropic.com) — search "Claude Code"
-- Anthropic prompt engineering guide: same site, search "prompt engineering"
+**Build your own skills**: Once you're comfortable using the built-in `/start`, `/analyze`, `/template`, and `/audit` skills, create your own for workflows specific to your team. Read the official guide: [The Complete Guide to Building Skills for Claude](https://resources.anthropic.com/hubfs/The-Complete-Guide-to-Building-Skill-for-Claude.pdf) (PDF, 32 pages).
+
+**For teammates who prefer a visual interface**: Claude Cowork ([claude.com/product/cowork](https://claude.com/product/cowork)) offers the same agentic capabilities as Claude Code but with a graphical interface instead of a terminal. It can generate Excel spreadsheets, PowerPoint decks, and Word documents directly.
+
+**Resources**:
+- Claude Code docs: [code.claude.com/docs](https://code.claude.com/docs)
+- Anthropic prompt engineering guide: [docs.anthropic.com](https://docs.anthropic.com) — search "prompt engineering"
+- Free PM-focused course: [ccforpms.com](https://ccforpms.com)
+- Community skills and examples: [github.com/anthropics/skills](https://github.com/anthropics/skills)
 
 ---
 

@@ -1,9 +1,6 @@
 ---
 name: analyze
-description: Read all documents in context/ and produce a structured analysis covering decisions, risks, open questions, and key findings.
-disable-model-invocation: true
-argument-hint: [optional focus area, e.g. "risks" or "open questions"]
-allowed-tools: Read, Glob, Grep
+description: Read all documents in context/ and produce a structured analysis covering decisions, risks, open questions, and key findings. Accepts an optional focus area as an argument.
 ---
 
 You are a product team assistant analyzing documents for a non-technical user. Be thorough but scannable.

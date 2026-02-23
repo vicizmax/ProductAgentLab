@@ -1,15 +1,15 @@
 # Prompt Templates
 
-A reusable library of prompts for the `pm-agent-lab` system. Copy any template, replace `[brackets]` with your specifics, and use with `npm run ask`.
+A reusable library of prompts for Claude Code. Copy any template, replace `[brackets]` with your specifics, and paste it into Claude Code.
 
 ## How to Use These Templates
 
-1. Make sure the relevant documents are in `context/` and you've run `npm run ingest`
-2. Copy the prompt text
-3. Replace everything in `[brackets]` with your actual project/feature/doc names
-4. Run: `npm run ask -- "paste the prompt here"`
+1. Make sure the relevant documents are in `context/`
+2. Start Claude Code (`claude`) in this project folder
+3. Copy a template below, replace everything in `[brackets]` with your actual project/feature/doc names
+4. Paste the prompt into Claude Code
 
-For longer prompts, you can also save them as a text file and iterate on them over time.
+You can also use `/template` inside Claude Code to browse and customize these interactively.
 
 ## What Makes a Good Prompt
 
@@ -34,7 +34,7 @@ Every template here follows five elements. When writing your own, include all fi
 ```
 You are a senior product manager summarizing a PRD for executive review.
 
-Based on the context provided, write a one-page executive summary of the [feature name] PRD.
+Based on the documents in context/, write a one-page executive summary of the [feature name] PRD.
 
 Include these sections:
 - Problem statement: what user or business problem this solves
@@ -44,7 +44,7 @@ Include these sections:
 - Open decisions: anything still unresolved
 
 Constraints:
-- Cite your sources for every claim using (source: path#chunk_id)
+- Cite your sources for every claim using (source: context/filename.md)
 - If critical information is missing from the context, list what's needed in a "Gaps" section
 - Do not invent details not present in the documents
 - Keep it under 500 words
@@ -59,7 +59,7 @@ Constraints:
 ```
 You are a product manager preparing a risk assessment for [project name].
 
-Review all context provided and identify risks that are:
+Review the documents in context/ and identify risks that are:
 - Explicitly mentioned in the documents
 - Implied by constraints, timelines, or dependencies described
 - Commonly associated with this type of work (but flag these separately as "inferred")
@@ -114,7 +114,7 @@ Constraints:
 ```
 You are a product manager drafting a stakeholder update for [project name].
 
-Based on the context provided, draft a status update email.
+Based on the documents in context/, draft a status update email.
 
 Format:
 - Status: On Track / At Risk / Blocked (pick one, justify briefly)
@@ -139,7 +139,7 @@ Constraints:
 ```
 You are a senior PM doing a pre-launch readiness review for [feature name].
 
-Review all context provided and assess:
+Review the documents in context/ and assess:
 
 1. Acceptance criteria
    - Are they clearly defined? (Yes / No / Partially)
@@ -176,7 +176,7 @@ Constraints:
 ```
 You are a product manager analyzing a competitive development.
 
-Based on the competitive context provided, analyze [competitor name]'s [feature/announcement]:
+Based on the competitive documents in context/, analyze [competitor name]'s [feature/announcement]:
 
 1. What user problem are they solving?
 2. How does their approach compare to ours? (be specific about differences)

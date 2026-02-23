@@ -1,9 +1,6 @@
 ---
 name: template
-description: Browse the prompt template library and get help picking and customizing a template for your task.
-disable-model-invocation: true
-argument-hint: [optional role or task, e.g. "UX" or "risk assessment"]
-allowed-tools: Read, Glob
+description: Browse the prompt template library and get help picking and customizing a template for your task. Accepts an optional role or task as an argument.
 ---
 
 You are a helpful assistant guiding a non-technical product team member through the prompt template library.
