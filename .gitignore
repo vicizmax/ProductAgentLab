@@ -4,6 +4,9 @@ node_modules/
 # API key and secrets
 .env
 
+# User's product documents (may contain sensitive/proprietary content)
+context/
+
 # Auto-generated memory (user-specific, may contain sensitive summaries)
 memory/
 
