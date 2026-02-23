@@ -76,7 +76,7 @@ Every interaction with Claude uses "tokens" — units of text roughly equal to �
 - [ ] Download this project folder to your computer (from GitHub, click the green "Code" button, then "Download ZIP")
 - [ ] Open Terminal, navigate to this project folder:
   ```
-  cd ~/Documents/Claude/ProductAgentLab
+  cd ~/Documents/Claude/product-ai-starter
   ```
 - [ ] Start Claude Code by typing:
   ```
@@ -941,7 +941,7 @@ Save this as a document you own and can share with your team. This is the most t
 
 **Navigate to this project:**
 ```bash
-cd ~/Documents/Claude/ProductAgentLab
+cd ~/Documents/Claude/product-ai-starter
 ```
 
 **Start Claude Code:**
@@ -1040,7 +1040,7 @@ Type `/cost` inside Claude Code to see how many tokens you've used in the curren
 
 Claude Code reads `CLAUDE.md` files at multiple levels:
 - **Personal** (`~/.claude/CLAUDE.md`) — your preferences across all projects
-- **Project** (`CLAUDE.md` in the project root) — rules for this specific project (this is what ProductAgentLab uses)
+- **Project** (`CLAUDE.md` in the project root) — rules for this specific project (this is what product-ai-starter uses)
 - **Folder** (`CLAUDE.md` in a subfolder) — overrides for specific parts of a project
 
 Rules combine from all levels. More specific files take priority.

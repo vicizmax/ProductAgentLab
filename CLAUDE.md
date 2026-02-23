@@ -2,7 +2,7 @@
 
 ## Project Summary
 
-ProductAgentLab is a learning environment for product teams (PMs, UX designers, researchers) to use Claude Code for AI-powered document analysis. Users place product documents in `context/` and use Claude Code directly to ask grounded questions about them.
+product-ai-starter is a learning environment for product teams (PMs, UX designers, researchers) to use Claude Code for AI-powered document analysis. Users place product documents in `context/` and use Claude Code directly to ask grounded questions about them.
 
 **The people using this project are not engineers.** They are product managers, UX designers, and researchers who are learning to use AI tools.
 

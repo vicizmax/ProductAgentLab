@@ -1,4 +1,4 @@
-# ProductAgentLab — Cursor Rules
+# product-ai-starter — Cursor Rules
 
 ## What This Project Is
 

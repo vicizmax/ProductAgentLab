@@ -11,7 +11,7 @@ Complete Steps 1 and 2 below, then stop and ask the user what they'd like to do 
 
 ### Step 1: Welcome and Check Setup
 
-Welcome the user to ProductAgentLab. In 2-3 sentences, explain what this project is: a learning environment for product teams to use Claude Code with their own documents.
+Welcome the user to product-ai-starter. In 2-3 sentences, explain what this project is: a learning environment for product teams to use Claude Code with their own documents.
 
 Then check the `context/` folder. Report:
 - How many files are in `context/`
