@@ -1,5 +1,6 @@
 # User's product documents (may contain sensitive/proprietary content)
-context/
+# If you are pushing stuff to a public GitHub repo, you likely want to add context/ here.
+example/
 
 # OS files
 .DS_Store
