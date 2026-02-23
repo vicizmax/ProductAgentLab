@@ -107,7 +107,7 @@ Read the files in context/ and give me a brief summary of each document.
 
 #### Available Slash Commands
 
-This project comes with four built-in commands you can use anytime inside Claude Code:
+This project comes with five built-in commands you can use anytime inside Claude Code:
 
 | Command | What It Does |
 |---|---|
