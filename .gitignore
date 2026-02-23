@@ -1,0 +1,11 @@
+# Dependencies
+node_modules/
+
+# API key and secrets
+.env
+
+# Auto-generated memory (user-specific, may contain sensitive summaries)
+memory/
+
+# OS files
+.DS_Store
