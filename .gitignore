@@ -2,5 +2,8 @@
 # If you are pushing stuff to a public GitHub repo, you likely want to add context/ here.
 example/
 
+# User's personal learning journal
+progress/
+
 # OS files
 .DS_Store

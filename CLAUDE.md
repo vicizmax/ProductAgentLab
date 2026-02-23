@@ -15,6 +15,8 @@ prompts/templates.md              Reusable prompt templates organized by role (P
 .claude/skills/analyze/SKILL.md  /analyze — structured document analysis
 .claude/skills/template/SKILL.md /template — browse and customize prompt templates
 .claude/skills/audit/SKILL.md    /audit — detailed single-document audit
+.claude/skills/learn/SKILL.md   /learn — guided syllabus walkthrough with progress tracking
+progress/journal.md               Your personal learning journal (auto-created by /learn)
 SYLLABUS.md                       3-week self-directed learning guide
 CLAUDE.md                         This file — project instructions for Claude Code
 ```
@@ -27,7 +29,7 @@ There is no custom application code. The workflow is:
 2. User opens Claude Code in this project directory
 3. User runs `/start` for a guided walkthrough, or asks questions directly
 4. Claude Code reads documents from `context/` and answers questions grounded in them
-5. Slash commands (`/analyze`, `/template`, `/audit`) provide structured workflows
+5. Slash commands (`/analyze`, `/template`, `/audit`, `/learn`) provide structured workflows
 6. Prompt templates in `prompts/templates.md` provide starting points for common tasks
 
 ## Tone and Style

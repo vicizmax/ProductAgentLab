@@ -109,6 +109,7 @@ This project comes with four built-in commands you can use anytime inside Claude
 | Command | What It Does |
 |---|---|
 | `/start` | Guided first-time walkthrough — start here |
+| `/learn` | Work through this syllabus interactively with progress tracking |
 | `/analyze` | Structured analysis of all documents (decisions, risks, open questions) |
 | `/template` | Browse and customize prompt templates from the library |
 | `/audit` | Detailed audit of a specific document for completeness and gaps |
@@ -127,6 +128,8 @@ You can also pass arguments to some commands, e.g. `/analyze risks` to focus on 
 - To pick a specific past session: type `claude --resume`
 
 **Important**: Each new `claude` session starts fresh — Claude reads your project files but does not remember previous conversations. Use `--continue` when you want to build on earlier work, which is especially useful during the multi-week learning journey.
+
+**Tip**: Run `/learn` to work through this syllabus with a guided coach. It saves your progress to `progress/journal.md`, so you can exit and pick up where you left off in a new session.
 
 ---
 
@@ -581,6 +584,7 @@ claude --resume          # Pick a past session to resume
 **Inside Claude Code, built-in project commands:**
 ```
 /start                   # Guided first-time walkthrough
+/learn                   # Guided syllabus walkthrough with progress tracking
 /analyze                 # Structured analysis of all documents
 /analyze risks           # Focus analysis on a specific area
 /template                # Browse and customize prompt templates

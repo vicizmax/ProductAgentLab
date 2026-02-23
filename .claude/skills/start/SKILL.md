@@ -28,6 +28,7 @@ Pick the largest document in `context/`. Read it and:
 2. Suggest three questions they could ask about THIS specific document — make them specific to the actual content, not generic
 3. Offer these options for what to do next:
    - Pick one of the suggested questions (or type their own)
+   - Try `/learn` to start the guided learning journey with progress tracking
    - Try `/analyze` for a structured analysis across all their documents
    - Try `/template` to browse prompt templates
    - Read `SYLLABUS.md` for the full 3-week learning guide
