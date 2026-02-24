@@ -379,7 +379,7 @@ Read context/[adr-filename].md and explain:
 
 Any document where an engineer explains *why* something was built a certain way works for this exercise.
 
-**Still can't find anything?** You can also practice this skill with the sample PRD: the Beacon PRD references the Notification API v2 and an ML platform dependency. Ask Claude to explain the technical constraints those impose on product decisions — it's a lighter version of the same skill.
+**Still can't find anything?** You can also practice this skill with the sample PRD: the Beacon PRD references the Notification API v2 and an ML platform dependency. Ask Claude to explain the technical constraints those impose on product decisions — it's a focused version of the same skill.
 
 **The goal is not to become technical.** The goal is to ask better questions in engineering conversations and to understand when product decisions are constrained by technical ones.
 
@@ -488,7 +488,7 @@ The goal is not paranoia — it's calibration. After this exercise, you should h
 
 ### Role-Specific Variations: UX and Design Workflows
 
-> **Not in a UX or design role?** Skip ahead to Exercise 2.5 (Output Audit) below. Exercise 2.4 is a UX-specific variation — you're not missing anything by skipping it.
+> **Not in a UX or design role?** Exercise 2.4 is a UX-specific variation — you're not missing anything by skipping it. Continue with Exercise 2.5 (Output Audit) above — it appears just before this section.
 
 If you're in UX, design, or research, these exercises are your equivalent of the PM document workflows above. You can do them instead of (or in addition to) the PM-focused Day 8–12 exercises.
 
@@ -847,7 +847,7 @@ This works because Claude can generate HTML, CSS, and JavaScript — which your 
 1. Pick a document from `context/` (a PRD, spec, or feature description)
 2. Ask Claude to build something based on it
 3. Claude generates an HTML file
-4. Open the file in your browser
+4. Open the file in your browser — find it in Finder (Mac) or File Explorer (Windows) and double-click it
 5. Tell Claude what to change
 6. Claude revises — repeat until you're satisfied
 
