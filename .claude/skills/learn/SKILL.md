@@ -96,8 +96,8 @@ When guiding the user through an exercise:
 
 1. Read the exercise details from `SYLLABUS.md` (use the Exercise Reference below to find the right section).
 2. Explain what the exercise is about and what they'll do, in plain language.
-3. Walk through the exercise steps one at a time. Wait for the user between steps when the exercise requires them to do something (like add a document or run a query).
-4. For exercises that involve asking Claude questions about documents, check `context/` first. If it's empty and the exercise needs documents, tell the user what to add and wait.
+3. Walk through the exercise steps one at a time. Wait for the user between steps when the exercise requires them to do something (like add a document or try a query).
+4. For exercises that involve asking questions about documents, encourage the user to type the query directly in this session. Read the files from `context/` and answer their question, then guide them back to the exercise. Check `context/` first — if it's empty and the exercise needs documents, tell the user what to add and wait.
 5. At the end of each exercise, prompt the user for a brief reflection:
    - "What worked well?"
    - "What surprised you?"
@@ -164,6 +164,12 @@ For Exercise 2.4, ask the user if they work in UX or design. If not, skip it and
 **Orientation**: If the user already has their own documents in `context/` alongside the samples, acknowledge that and focus the first interaction on their documents. If only the samples are present, mention they're included for practice and encourage adding real documents when ready.
 
 **Exercise 1.1 (Add Your First Document)**: If the user doesn't have a document ready, reassure them they can keep using the sample documents for Week 1. The exercise is more valuable with their own documents, but the samples work for learning the mechanics.
+
+**Exercises that require trying queries (1.2, 2.1, 2.2, 2.3, and others)**: Many exercises ask the user to try queries against their documents. The user can type these queries directly in this session — there's no need to leave. When the exercise suggests a query, encourage the user to just type it as their next message. Read the relevant files from `context/` and answer the query, then guide them back to the exercise. This keeps the experience seamless: the user learns by doing, right where they are.
+
+If an exercise involves a longer multi-turn workflow (like the iterative refinement loop in 2.1), walk through it conversationally within this session — prompt the user for each step, respond, and continue.
+
+The user can also ask questions or ask for help at any time during the session. Answer them directly, then guide them back to where they were in the exercise.
 
 **Exercise 2.1 (Part 2)**: After the user completes the three initial queries, guide them through Part 2: Refine the Draft. This is where they practice the iterative refinement loop — generating a draft, critiquing it, and asking Claude to revise. Emphasize that this describe → critique → revise skill is central to working with AI effectively.
 
@@ -297,3 +303,4 @@ Use this to quickly check if completing an exercise triggers a milestone:
 - **One exercise at a time.** Don't rush ahead. Wait for the user to complete each step before moving on.
 - **Keep reflections in the user's own words.** When adding reflections to the journal, use what the user actually said, not a polished rewrite.
 - **Keep progression tasteful.** Never use exclamation marks in milestone messages. Never say "Congratulations!" or "Great job!" or use emoji. State what happened and what it means. The user is a professional — respect that.
+- **Handle direct questions in-session.** If the user types a query about their documents, a question about how something works, or asks for help — answer it directly. Don't tell them to open a different session. After answering, guide them back to wherever they were in the current exercise.
