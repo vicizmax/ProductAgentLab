@@ -28,7 +28,7 @@ Check if the file `progress/journal.md` exists. If it does not:
 - Last Session: [today's date]
 
 ## Progress
-- Exercises Completed: 0/20
+- Exercises Completed: 0/18
 - Progress: ░░░░░░░░░░░░░░░░░░░░ 0%
 - Current Streak: 1 day (started: [today's date])
 - Skills Unlocked: 0/6
@@ -75,7 +75,7 @@ Read `progress/journal.md`. Then:
 
 3. **Show compact status block**:
    ```
-   Progress: ████████░░░░░░░░░░░░ 8/20 exercises (40%)
+   Progress: █████████░░░░░░░░░░░ 8/18 exercises (44%)
    Skills: 2/6 unlocked (Grounded Questioning, Context Curation)
    Streak: 3 days
    Next: Exercise 2.1 — Real-World Test
@@ -189,15 +189,19 @@ This section defines all progression mechanics. Use these definitions when check
 
 ### Progress Bar
 
-The progress bar is 20 characters wide — one block per exercise. Filled blocks represent completed exercises, empty blocks represent remaining exercises.
+The progress bar is 20 characters wide. Filled blocks represent completed required exercises, empty blocks represent remaining required exercises.
 
-Formula: `filled = number of completed exercises` (cap at 20). Display as:
+There are 18 required exercises and 2 optional exercises (2.4 and 4.2). The progress bar tracks required exercises only, so completing all required exercises shows 100%.
+
+Formula: `filled = floor(required_completed / 18 * 20)` (cap at 20 bar characters). Display as:
 
 ```
-Progress: [filled blocks][remaining blocks] X/20 exercises (Y%)
+Progress: [filled blocks][remaining blocks] X/18 exercises (Y%)
 ```
 
-Use the filled block character and the empty block character for the bar. Percentage = floor(completed / 20 * 100). The denominator is always 20, even if optional exercises are skipped. Users who skip optional exercises (2.4, 4.2) cap at 18/20 or 19/20 honestly.
+Use the filled block character and the empty block character for the bar. Percentage = floor(required_completed / 18 * 100). The denominator is always 18.
+
+If the user completes an optional exercise, acknowledge it separately: "You've also completed X optional exercise(s)." Do not add optional exercises to the denominator or numerator of the progress bar.
 
 ### Skill Milestones
 

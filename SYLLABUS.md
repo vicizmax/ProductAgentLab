@@ -225,11 +225,29 @@ Before adding documents, filter them:
 - Does it contain decisions or facts, or just discussion?
 - Would knowing this help Claude give me a better answer?
 
-Add 5–8 documents to `context/`.
+Add 2–3 documents to `context/` to start. If you have more, add up to 8 — the more documents you add, the more useful cross-document queries become in Week 2. Even 2 documents alongside the samples are enough to continue.
+
+**Don't have documents ready yet?** You can keep using the sample documents for now. When you do have a real document to add, come back and run this exercise — the filtering questions above still apply.
 
 #### Exercise 1.4: Test the Limits
 
-Ask Claude something you know is NOT in your documents. It should say it doesn't have that information. If it answers confidently without referencing a document, that's a hallucination. Testing the limits early builds appropriate (not blind) trust in the tool.
+Ask Claude something you know is NOT in your documents. Try questions like:
+
+```
+Based on the documents in context/, how does our product compare to [a competitor not mentioned in the docs]?
+```
+
+```
+What was decided about [a topic your documents don't cover]?
+```
+
+```
+What are the success metrics for [a feature that isn't in your documents]?
+```
+
+Claude should say it doesn't have that information. If it answers confidently without referencing a document, that's a hallucination — it's making things up rather than admitting a gap.
+
+Testing the limits early builds appropriate (not blind) trust in the tool. You want to know where the boundary is between "Claude is extracting from my documents" and "Claude is generating from general knowledge."
 
 ---
 
@@ -413,7 +431,9 @@ Cite source documents for both sides.
 
 #### Exercise 2.3: Synthesize a Real Research Batch
 
-Take user research from the past quarter. Synthesize it with Claude. Compare the output to the synthesis your team produced manually. What did Claude surface that you missed? What important context did it lose because it wasn't written down?
+Take user research from the past quarter — interview summaries, survey results, support ticket themes, or NPS comments. Add them to `context/`, then synthesize with Claude. Compare the output to the synthesis your team produced manually. What did Claude surface that you missed? What important context did it lose because it wasn't written down?
+
+**Don't have research documents from work?** You can practice this skill with the sample documents already in `context/`. Ask Claude to compare what the research found (`sample-research-notifications.md`) against what the PRD proposes (`sample-prd-beacon.md`) — where does the PRD address research findings, and where does it ignore them? This is the same synthesis skill applied to the included materials.
 
 ---
 
@@ -544,21 +564,23 @@ You can create a `CLAUDE.md` for any project you work on. Think of it as trainin
 
 **How this project uses CLAUDE.md**: The rules in this project's `CLAUDE.md` enforce grounded answers, source citations, and plain language. Without them, Claude would give generic, uncited responses. The rules make the difference.
 
-#### Session Management
+#### Session Management and Cost
 
-You've been using `claude` and `claude --continue`. Here's the full picture:
+You learned about `claude`, `--continue`, and `--resume` in Day 1-2. See Appendix D for a quick reference table.
 
-| Command | What It Does | When to Use It |
-|---|---|---|
-| `claude` | Start a fresh session | New task, clean slate |
-| `claude --continue` | Resume your last conversation | Picking up where you left off — faster and cheaper because Claude already has context |
-| `claude --resume` | Pick a specific past session | Jumping back to a particular conversation from days ago |
+Two additional techniques worth knowing now:
 
-**Why this matters for cost**: Every new session means Claude re-reads your project files and CLAUDE.md. Using `--continue` skips that, saving tokens (and money). For multi-day work like this syllabus, `--continue` is almost always the right choice.
+**Quick one-off questions**: You don't always need to start a full session. For a single question, use:
 
-#### Cost Awareness
+```bash
+claude -p "Read context/sample-prd-beacon.md and list the top 3 risks"
+```
 
-Type `/cost` inside Claude Code to see how many tokens you've used in the current session. A few rules of thumb:
+This runs the query, prints the answer, and exits — no interactive session, no follow-up. Useful when you just need a quick fact from a document.
+
+**Managing long sessions**: If a conversation has gone on for a while and responses start feeling slow, type `/compact` inside Claude Code. This summarizes the conversation so far and frees up space, without losing context. Think of it as Claude taking notes on what you've discussed so it doesn't have to re-read the full transcript.
+
+**Check your spending**: Type `/cost` inside Claude Code at any time to see how many tokens you've used. A few rules of thumb:
 - Reading lots of documents = more tokens = higher cost
 - Long conversations accumulate tokens — start fresh if you're switching to an unrelated task
 - `--continue` is cheaper than starting fresh for ongoing work
@@ -800,7 +822,7 @@ Find one person who might benefit. Walk them through setup and their first Claud
 
 **Goal**: By the end of this week, you've built a working prototype, connected Claude to one of your work tools, generated visual artifacts, and documented your personal AI workflow system.
 
-> **Note**: This week introduces the most advanced capabilities in the guide. Every exercise is designed so that Claude does the technical work — you describe what you want and review the results. No coding knowledge is needed.
+**A shift in what you're doing**: The first three weeks focused on using Claude to read and analyze documents. This week, you'll use it to *create* things — prototypes, diagrams, and visual artifacts. The core skill is the same one you practiced in Exercise 2.1: describe what you want, review the output, critique it, and iterate. The difference is that the outputs are now tangible things you can open in a browser and share with your team. Every exercise is designed so that Claude does the technical work — you describe what you want and review the results. No coding knowledge is needed.
 
 ---
 
