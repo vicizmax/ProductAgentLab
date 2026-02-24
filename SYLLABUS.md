@@ -58,52 +58,45 @@ Every interaction with Claude uses "tokens" — units of text roughly equal to �
 
 ## Week 1: Get Set Up and Start Getting Value
 
-**Goal**: By the end of this week, Claude Code is running on your laptop, you've loaded your first product documents, and you've gotten your first grounded answer to a real work question.
+**Goal**: By the end of this week, you understand how the project works, you've asked your first grounded questions, and you've started building your context library with your own documents.
 
 ---
 
-### Day 1–2: Setup
+### Day 1–2: Orientation
 
-**What you're doing**: Installing Claude Code and running your first command.
+**What you're doing**: Getting familiar with the project, understanding how sessions work, and trying your first grounded question.
 
-#### Setup Checklist
+You're already inside Claude Code — which means setup is done. (If you're reading this before setting up, see the README for installation steps.) This exercise is about understanding what you're looking at and how to use it.
 
-- [ ] Install Claude Code — open Terminal (Mac: press Cmd + Space, type "Terminal", press Enter) and run:
-  ```
-  npm install -g @anthropic-ai/claude-code
-  ```
-  (If this command fails with "npm not found", you need Node.js first: download from [nodejs.org](https://nodejs.org), choose the LTS version, install it, then try the command again.)
-- [ ] Download this project folder to your computer (from GitHub, click the green "Code" button, then "Download ZIP")
-- [ ] Open Terminal, navigate to this project folder:
-  ```
-  cd ~/Documents/Claude/product-ai-starter
-  ```
-- [ ] Start Claude Code by typing:
-  ```
-  claude
-  ```
+#### What's in This Project
 
-That's it. Claude Code is now running and can see all the files in this project.
+| File or Folder | What It's For |
+|---|---|
+| `context/` | Where your product documents live. Claude reads from here when you ask questions. It comes with two sample documents to practice with — replace them with your own when you're ready. |
+| `prompts/templates.md` | 18 reusable prompt templates organized by role (PM, UX, Research). |
+| `SYLLABUS.md` | This file — the 4-week learning guide. |
+| `CLAUDE.md` | Standing instructions that tell Claude how to behave in this project (cite sources, don't invent facts, use plain language). |
+| `progress/` | Your personal learning journal, created automatically when you use `/learn`. |
 
 #### Your First Interaction
 
-Once Claude Code is running, type:
-
-```
-/start
-```
-
-This launches a guided walkthrough that will:
-- Check what documents you have in `context/`
-- Summarize them for you
-- Walk you through your first grounded question
-- Explain what happened and what to do next
-
-If you prefer to explore on your own, you can also just type questions directly, like:
+The `context/` folder already contains two sample documents: a PRD for a smart notification feature and user research on notification overload. Try asking Claude about them:
 
 ```
 Read the files in context/ and give me a brief summary of each document.
 ```
+
+Then try something more specific:
+
+```
+Based on the documents in context/, what risks are mentioned?
+```
+
+```
+What are the open questions across the documents in context/?
+```
+
+**What to notice**: Claude cites the specific file it's drawing from (e.g., "Based on context/sample-prd-beacon.md:"). That's **grounding** — answers tied to your actual documents, not generic knowledge. This is the core pattern you'll use throughout the learning journey.
 
 #### Available Slash Commands
 
@@ -111,26 +104,32 @@ This project comes with five built-in commands you can use anytime inside Claude
 
 | Command | What It Does |
 |---|---|
-| `/start` | Guided first-time walkthrough — start here |
+| `/start` | Quick orientation — summarizes your documents and suggests questions |
 | `/learn` | Work through this syllabus interactively with progress tracking |
 | `/analyze` | Structured analysis of all documents (decisions, risks, open questions) |
 | `/template` | Browse and customize prompt templates from the library |
 | `/audit` | Detailed audit of a specific document for completeness and gaps |
 
-You can also pass arguments to some commands, e.g. `/analyze risks` to focus on risks only, or `/audit my-prd.md` to audit a specific file.
+You can also pass arguments to some commands, e.g. `/analyze risks` to focus on risks only, or `/audit sample-prd-beacon.md` to audit a specific file.
 
-#### Useful Commands to Know Right Away
+#### How Sessions Work
+
+This is the most important concept for daily use:
+
+| Command | What It Does | When to Use It |
+|---|---|---|
+| `claude` | Start a fresh session | New task, clean slate |
+| `claude --continue` | Resume your last conversation | Picking up where you left off — faster and cheaper because Claude doesn't re-read everything |
+| `claude --resume` | Pick a specific past session | Jumping back to a particular conversation from days ago |
+
+**Why this matters for cost**: Every new session means Claude re-reads your project files and CLAUDE.md. Using `--continue` skips that, saving tokens (and money). For multi-day work like this syllabus, `--continue` is almost always the right choice.
+
+**Check your spending**: Type `/cost` inside Claude Code at any time to see how many tokens you've used in the current session.
+
+#### Useful Commands
 
 - `/help` — see all available commands (use this whenever you're stuck)
 - `/exit` or Ctrl+C — leave Claude Code
-
-#### How to Exit and Resume
-
-- To start a new session: navigate to the project folder and type `claude`
-- To resume where you left off: type `claude --continue` (picks up your last conversation)
-- To pick a specific past session: type `claude --resume`
-
-**Important**: Each new `claude` session starts fresh — Claude reads your project files but does not remember previous conversations. Use `--continue` when you want to build on earlier work, which is especially useful during the multi-week learning journey.
 
 **Tip**: Run `/learn` to work through this syllabus with a guided coach. It saves your progress to `progress/journal.md`, so you can exit and pick up where you left off in a new session.
 
@@ -142,6 +141,8 @@ You can also pass arguments to some commands, e.g. `/analyze risks` to focus on 
 
 #### Exercise 1.1: Add Your First Document
 
+You've been practicing with the sample documents that came with the project. They're useful for learning, but the real value comes from using your own work documents. Time to add one.
+
 1. Find ONE real work document you already have — see below for ideas by role:
    - **PM**: a PRD, feature spec, or roadmap document
    - **UX**: a usability study summary, design spec, or user journey map
@@ -151,6 +152,8 @@ You can also pass arguments to some commands, e.g. `/analyze risks` to focus on 
 3. Copy it into the `context/` folder in this project
 
 That's it — no ingestion step needed. Claude Code reads files directly when you ask it to.
+
+**Don't have a document ready?** That's fine. You can keep using the sample documents for all of Week 1's exercises. When you do have a real document, add it to `context/` and you'll immediately see the difference in how relevant the answers are.
 
 #### Exercise 1.2: Ask Real Questions
 
@@ -350,6 +353,16 @@ Read context/[adr-filename].md and explain:
 - What would a PM need to know about the tradeoffs here?
 ```
 
+**Don't have an ADR?** Most teams don't write formal ADRs. Try these alternatives instead:
+- A technical design document or RFC from your engineering team
+- An engineering Slack thread or email where someone explained why a decision was made
+- Release notes or a changelog — paste the relevant section into a `.md` file
+- A ticket description that includes technical context (export from Jira or Linear)
+
+Any document where an engineer explains *why* something was built a certain way works for this exercise.
+
+**Still can't find anything?** You can also practice this skill with the sample PRD: the Beacon PRD references the Notification API v2 and an ML platform dependency. Ask Claude to explain the technical constraints those impose on product decisions — it's a lighter version of the same skill.
+
 **The goal is not to become technical.** The goal is to ask better questions in engineering conversations and to understand when product decisions are constrained by technical ones.
 
 ---
@@ -440,7 +453,8 @@ Train yourself to notice these:
 
 #### Exercise 2.5: Output Audit
 
-Take 5 answers Claude gave you during Weeks 1–2. For each:
+Ask Claude 5 different questions about your documents in `context/`. Try a mix — some factual ("What are the success metrics?"), some analytical ("What's the biggest risk?"), some that push beyond what's in the documents ("How does this compare to competitors?"). Then, for each answer:
+
 1. Identify every factual claim
 2. Check: was this in your documents? (ask Claude "Which document is that from?")
 3. Is the claim accurate?
@@ -451,6 +465,8 @@ The goal is not paranoia — it's calibration. After this exercise, you should h
 ---
 
 ### Role-Specific Variations: UX and Design Workflows
+
+> **Not in a UX or design role?** Skip ahead to Exercise 2.5 (Output Audit) below. Exercise 2.4 is a UX-specific variation — you're not missing anything by skipping it.
 
 If you're in UX, design, or research, these exercises are your equivalent of the PM document workflows above. You can do them instead of (or in addition to) the PM-focused Day 8–12 exercises.
 
@@ -648,7 +664,12 @@ Read context/[your-data].csv and:
 Present the findings in a table where possible.
 ```
 
-**Don't have a CSV?** No problem. Export something from a tool you use — even a simple spreadsheet saved as CSV works. Or skip this exercise and move to 3.4. You can come back to it anytime.
+**Don't have a CSV?** No problem — here are quick ways to get one:
+- Open any spreadsheet you have (Google Sheets, Excel) → File → Download as CSV
+- Export tickets from Jira or Linear (most project tools have a CSV export option)
+- Copy a table from a document into a spreadsheet, then save as CSV
+
+Even a simple task list or feature tracker works. If you really don't have any data to use, skip this exercise and move to 3.4. You can come back to it anytime.
 
 ---
 
@@ -744,6 +765,8 @@ When introducing this to colleagues, structure it as:
 
 Find one person who might benefit. Walk them through setup and their first Claude Code session. Write down the questions they asked that you couldn't answer — those are gaps to fix either in documentation or in this guide.
 
+**Flying solo?** If you don't have a colleague to teach right now, write a 5-minute walkthrough document instead — as if you were onboarding a new team member. Cover: what you'd show them first, what you'd have them try, and what questions you'd expect them to ask. This forces the same knowledge consolidation as teaching someone live, and you'll have a useful artifact if a colleague does want to learn later.
+
 ---
 
 ## Week 4: Go Further — Build, Connect, Visualize
@@ -835,9 +858,9 @@ MCP turns Claude Code from a tool that reads files into a tool that reads your e
 
 MCP servers are small connectors that Claude Code uses to talk to external tools. You configure them once, and then Claude can query those tools whenever you ask. Claude will help you with the setup — you don't need to understand the technical details.
 
-#### Exercise 4.2: Connect a Tool with MCP
+#### Exercise 4.2 (Advanced — Optional): Connect a Tool with MCP
 
-> **Note**: This is the most technical exercise in the guide. Claude will walk you through every step. If you get stuck or aren't comfortable with the setup, it's fine to skip this one and come back later.
+> **Note**: This is the most technical exercise in the guide and requires API credentials for one of your work tools. If you're not sure what API credentials are, or your company's IT team manages tool access, skip this for now — you can come back when you have help from someone technical. Skipping this does not affect the rest of the syllabus.
 
 Pick one tool you use daily:
 

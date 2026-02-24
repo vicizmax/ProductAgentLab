@@ -11,7 +11,7 @@ The users of this project are **not engineers**. They are product managers, UX d
 ```
 context/                          → User's product documents (PRDs, specs, research, etc.)
 prompts/templates.md              → Reusable prompt templates organized by role (PM, UX, Research)
-.claude/skills/start/SKILL.md    → /start — guided first-time walkthrough
+.claude/skills/start/SKILL.md    → /start — quick orientation, summarizes documents
 .claude/skills/analyze/SKILL.md  → /analyze — structured document analysis
 .claude/skills/template/SKILL.md → /template — browse and customize prompt templates
 .claude/skills/audit/SKILL.md    → /audit — detailed single-document audit
