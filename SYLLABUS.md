@@ -473,6 +473,8 @@ Train yourself to notice these:
 
 #### Exercise 2.5: Output Audit
 
+> **Note on exercise order**: Exercise 2.4 is a UX-specific exercise that appears in the next section. If you're not in a UX or design role, you haven't missed anything — continue here.
+
 Ask Claude 5 different questions about your documents in `context/`. Try a mix — some factual ("What are the success metrics?"), some analytical ("What's the biggest risk?"), some that push beyond what's in the documents ("How does this compare to competitors?"). Then, for each answer:
 
 1. Identify every factual claim
@@ -602,7 +604,7 @@ Help me write a CLAUDE.md that includes:
 Use this project's CLAUDE.md as a reference for the structure.
 ```
 
-Review what Claude generates. Edit it to match how your team actually works. You don't need to deploy it yet — just create it as a draft.
+Review what Claude generates. Edit it to match how your team actually works. Save the draft somewhere outside this project — in your own project folder, a notes app, or a scratch file. You don't need to deploy it yet — just have it ready for when you do.
 
 ---
 

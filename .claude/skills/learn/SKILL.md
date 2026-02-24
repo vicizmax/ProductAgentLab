@@ -68,6 +68,8 @@ Read `progress/journal.md`. Then:
    - Add a "Week" column to the Completed Exercises table if it doesn't have one (map exercises to weeks using the Exercise Reference)
    - Insert the `## Progress` section between `## Current Position` and `## Completed Exercises` with the computed state
 
+   **Denominator migration**: If the `## Progress` section exists but shows `/20` in the Exercises Completed line (e.g. "5/20"), update it to `/18` and recalculate the percentage. The progress bar now tracks only the 18 required exercises. Do this silently — no need to mention the change to the user.
+
 2. **Update streak**: Compare Last Session date to today's date.
    - If Last Session is today: no change to streak
    - If Last Session is yesterday: increment streak by 1
@@ -155,7 +157,7 @@ This maps exercise names to their locations in `SYLLABUS.md`. Use this to find t
 
 ### Exercise order
 
-Guide users through exercises in this order: Orientation, 1.1, 1.2, 1.3, 1.4, 2.1, 2.2, 2.3, 2.4 (UX roles only — ask if relevant), 2.5, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 4.1, 4.2, 4.3, 4.4.
+Guide users through exercises in this order: Orientation, 1.1, 1.2, 1.3, 1.4, 2.1, 2.2, 2.3, 2.4 (UX roles only — ask if relevant), 2.5, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 4.1, 4.2 (optional — skip if not comfortable with technical setup), 4.3, 4.4.
 
 For Exercise 2.4, ask the user if they work in UX or design. If not, skip it and move to 2.5.
 

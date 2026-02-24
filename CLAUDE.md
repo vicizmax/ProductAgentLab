@@ -17,7 +17,7 @@ prompts/templates.md              Reusable prompt templates organized by role (P
 .claude/skills/audit/SKILL.md    /audit — detailed single-document audit
 .claude/skills/learn/SKILL.md   /learn — guided syllabus walkthrough with progress tracking
 .claude/skills/review/SKILL.md  /review — simulate first-time user experience and report issues
-progress/journal.md               Your personal learning journal (auto-created by /learn)
+progress/                         Created by /learn to track your learning journal
 SYLLABUS.md                       4-week self-directed learning guide
 CLAUDE.md                         This file — project instructions for Claude Code
 ```
