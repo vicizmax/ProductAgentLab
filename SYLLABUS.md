@@ -618,6 +618,33 @@ Do these three things at the same time:
 
 Claude splits the work, runs it in parallel, and combines the results. This is faster than asking three separate questions.
 
+#### Multiple Sessions: Working in Parallel
+
+You can also run two (or more) Claude sessions at the same time — each in its own terminal tab, both working in the same project. Think of it like having two separate conversations open side by side.
+
+**How to open a second session:**
+
+- **Mac Terminal or iTerm:** Press **Cmd+T** to open a new tab
+- **VS Code:** Click the **+** button in the terminal panel (bottom of the screen)
+- **Linux / Windows Terminal:** Press **Ctrl+Shift+T** to open a new tab
+
+In the new tab, navigate to the same project folder and type `claude` to start a second session.
+
+**When this is useful:**
+
+- One session runs a long analysis while you ask quick questions in another
+- One session drafts a document while another reviews a different document
+- You want to try two different approaches to the same problem and compare results
+
+**What to watch out for:**
+
+- Both sessions can **read** the same files with no issues
+- If both sessions try to **edit** the same file at the same time, you'll get conflicts — avoid this by having each session work on different tasks
+- Each session uses its own tokens, so running two sessions costs roughly double what one session costs
+- The two sessions don't know about each other — they don't share context or conversation history
+
+**How this differs from sub-agents:** Sub-agents (described above) are Claude automatically splitting work within a single session. Multiple sessions are *you* choosing to run separate conversations in parallel. Sub-agents share context with each other; parallel sessions are completely independent.
+
 #### Working with Structured Data (CSVs)
 
 Claude Code can read CSV files directly from `context/`. This is useful for:
@@ -1080,6 +1107,21 @@ Read the documents in context/ and do these three things at the same time:
 ```
 
 Claude will spin up sub-agents to handle each part in parallel — faster than doing them one at a time.
+
+### Multiple Parallel Sessions
+
+You can run more than one Claude session at the same time by opening additional terminal tabs:
+
+- **Mac:** Cmd+T | **VS Code:** click **+** in the terminal panel | **Linux/Windows:** Ctrl+Shift+T
+
+Navigate to the same project folder in the new tab and type `claude`.
+
+Use cases:
+- Run a long analysis in one tab while asking quick questions in another
+- Draft a document in one session while reviewing a different document in another
+- Compare two different approaches to the same problem side by side
+
+**Cost note:** Each session uses its own tokens. Two sessions running simultaneously costs roughly double one session.
 
 ### Verify Sources
 
